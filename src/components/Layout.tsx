@@ -2,8 +2,8 @@ import { Outlet } from 'react-router-dom';
 
 import styled from 'styled-components';
 
-import Header from './header/Header';
-import Footer from './footer/Footer';
+import Header from './common/header/Header';
+import Footer from './common/footer/Footer';
 
 const Container = styled.div`
   height: 100vh;

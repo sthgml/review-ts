@@ -118,23 +118,12 @@ const GlobalStyle = createGlobalStyle<GlobalStyleProps>`
     position: absolute;
   }
 
-  :root {
-    --icon : #9BABB2;
-    --em : #DDE0E4;
-    --medium : #677880;
-    --bg : #263140;
-    --primary : #96F2D7;
-    --bg-2 : #2F3B4B;
-    --bg-3 : #1d242c;
-    --bg-4 : #10141a;
-  }
-
   body {
     font-family: 'Pretendard';
     font-size: 14px;
 
-    background-color: var(--bg-3, #263140);
-    color: var(--em);
+    background-color: ${({ theme }) => theme.colors.background3};
+    color: ${({ theme }) => theme.colors.text};
   }
 
   [class^="input-user"]{
@@ -147,13 +136,13 @@ const GlobalStyle = createGlobalStyle<GlobalStyleProps>`
     width: 100%;
     padding: 14px;
     border-radius: 4px 4px 0px 0px;
-    border-bottom: 1px solid var(--text-3, #677880);
-    background: var(--medium, #677880);
+    border-bottom: 1px solid ${({ theme }) => theme.colors.secondary};
+    background: ${({ theme }) => theme.colors.secondary};
     color: white;
   }
 
   [class^="user-"]::placeholder {
-    color: var(--icon);
+    color: ${({ theme }) => theme.colors.icon};
     line-height: 20px;
   }
 
@@ -162,8 +151,8 @@ const GlobalStyle = createGlobalStyle<GlobalStyleProps>`
     line-height: 20px;
     padding : 14px;
     font-weight: bold;
-    background-color: var(--primary);
-    color: var(--bg);
+    background-color: ${({ theme }) => theme.colors.primary};
+    color: ${({ theme }) => theme.colors.background2};
     cursor: pointer;
     font-size: 16px;
     border-radius: 8px;
@@ -171,13 +160,13 @@ const GlobalStyle = createGlobalStyle<GlobalStyleProps>`
   }
 
   [class^="btn-"]:hover {
-    background: linear-gradient(#bceedf, var(--primary));
+    background: linear-gradient(#bceedf, ${({ theme }) => theme.colors.primary});
     box-sizing: border-box;
     box-shadow: inset -1px -1px #60bba0;
   }
 
   [class^="btn-"]:active {
-    background: linear-gradient(var(--primary), #60bba0);
+    background: linear-gradient(${({ theme }) => theme.colors.primary}, #60bba0);
     box-sizing: border-box;
     box-shadow: inset 1px 1px #60bba0;
   }
@@ -190,14 +179,14 @@ const GlobalStyle = createGlobalStyle<GlobalStyleProps>`
   .assistive-text {
     font-size: 12px;
     line-height: 16px;
-    color: var(--medium, #677880);
+    color: ${({ theme }) => theme.colors.secondary};
   }
 
   .mark {
     display: inline-block;
     width: fit-content;
     box-shadow: inset 0 -0.6em 0 #96F2D750;
-    border-bottom: 1px solid var(--primary);
+    border-bottom: 1px solid ${({ theme }) => theme.colors.primary};
     line-height: 120%;
     font-weight: bold;
   }

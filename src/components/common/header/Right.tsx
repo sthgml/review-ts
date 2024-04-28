@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 
 // import { useLogout } from '../../../hooks/useLogout';
 
-import iconLogout from '../../assets/icon/icon-logout.svg';
-import iconLogin from '../../assets/icon/icon-login.svg';
-import iconJoin from '../../assets/icon/icon-join.svg';
+import iconLogout from '../../../assets/icon/icon-logout.svg';
+import iconLogin from '../../../assets/icon/icon-login.svg';
+import iconJoin from '../../../assets/icon/icon-join.svg';
 
 const Container = styled.div`
   display: flex;

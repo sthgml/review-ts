@@ -6,8 +6,8 @@ import { useMediaQuery } from 'react-responsive';
 
 import Hamburger from './Hamburger';
 
-import logoSm from '../../assets/logos/logo-sm.png';
-import logoXs from '../../assets/logos/logo-xs.png';
+import logoSm from '../../../assets/logos/logo-sm.png';
+import logoXs from '../../../assets/logos/logo-xs.png';
 
 const Container = styled.div`
   &.left-header {

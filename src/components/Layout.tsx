@@ -2,11 +2,11 @@ import { Outlet } from 'react-router-dom';
 
 import styled from 'styled-components';
 
-import Header from './Header';
+import Header from './header/Header';
+import Footer from './footer/Footer';
 
 const Container = styled.div`
-  margin-inline: auto;
-  width: 90%;
+  height: 100vh;
 `;
 
 export default function Layout() {
@@ -14,6 +14,7 @@ export default function Layout() {
     <Container>
       <Header />
       <Outlet />
+      <Footer />
     </Container>
   );
 }

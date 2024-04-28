@@ -17,6 +17,7 @@
     "@eslint/js": "^9.1.1",
     "@types/react": "^18.3.1",
     "@types/react-dom": "^18.3.0",
+    "@types/react-responsive": "^8.0.8",
     "@types/styled-components": "^5.1.34",
     "@typescript-eslint/eslint-plugin": "^7.7.1",
     "@typescript-eslint/parser": "^7.7.1",
@@ -26,6 +27,7 @@
     "eslint-plugin-react": "^7.34.1",
     "globals": "^15.0.0",
     "parcel": "^2.12.0",
+    "parcel-plugin-static-files-copy": "^2.6.0",
     "process": "^0.11.10",
     "typescript": "^5.4.5",
     "typescript-eslint": "^7.7.1"
@@ -33,8 +35,12 @@
   "dependencies": {
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-responsive": "^10.0.0",
     "react-router-dom": "^6.23.0",
     "styled-components": "^5.3.10",
     "styled-reset": "^4.5.2"
+  },
+  "staticFiles": {
+    "staticPath": "static"
   }
 }

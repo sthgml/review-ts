@@ -39,7 +39,7 @@ const Container = styled.button`
     position: absolute;
     width: 120px;
     text-align: center;
-    background-color: ${({ theme }) => theme.colors.background};
+    background-color: ${({ theme }) => theme.colors.background1};
     box-shadow: 0 0 16px ${({ theme }) => theme.colors.background3};
     opacity: 0;
 

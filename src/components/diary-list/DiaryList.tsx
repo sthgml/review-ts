@@ -9,7 +9,6 @@ import { mockData } from './diaries';
 const Container = styled.section`
   max-width: 100%;
   width: fit-content;
-  margin: auto;
   padding: 32px 48px;
   background: ${({ theme }) => theme.colors.background2};
   border-radius: 16px;
@@ -56,13 +55,13 @@ const Container = styled.section`
     width: 478px;
     padding: 30px 28px 35px;
     border-radius: 16px;
-    background-color: ${({ theme }) => theme.colors.background};
-    box-shadow: 0 0 8px ${({ theme }) => theme.colors.background};
+    background-color: ${({ theme }) => theme.colors.background1};
+    box-shadow: 0 0 8px ${({ theme }) => theme.colors.background1};
     transition: all 0.2s;
   }
 
   .note-list article:hover {
-    box-shadow: 0 0 50px ${({ theme }) => theme.colors.background};
+    box-shadow: 0 0 50px ${({ theme }) => theme.colors.background1};
     transform: scale(1.02);
   }
 

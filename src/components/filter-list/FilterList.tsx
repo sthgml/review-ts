@@ -14,65 +14,63 @@ const Container = styled.nav`
   top: 68px;
   z-index: 20;
 
-  ul {
+  ul.filterList-ul {
     display: flex;
     flex-direction: column;
     gap: 8px;
 
     font-size: 16px;
-  }
+    
+    li {
+      cursor: pointer;
+      color: ${({ theme }) => theme.colors.secondary};
+      background: ${({ theme }) => theme.colors.background4};
+      padding: 8px 24px 8px 16px;
+      border-radius: 8px 0 0 8px;
+      transition: all 0.2s;
 
-  ul li {
-    cursor: pointer;
-    color: var(--medium);
-    background: var(--bg-4);
-    padding: 8px 24px 8px 16px;
-    border-radius: 8px 0 0 8px;
-    transition: all 0.2s;
-  }
+      &::before {
+        content: '';
+        display: inline-block;
+        width: 32px;
+        height: 32px;
+        vertical-align: -0.6em;
+        background: url(${iconHeart}) no-repeat;
+      }
 
-  ul li.opened {
-    color: var(--em);
-    background: var(--bg-2);
-    font-weight: bold;
-  }
+      &:hover {
+        background-color: ${({ theme }) => theme.colors.background2};
+      }
 
-  ul li::before {
-    content: '';
-    display: inline-block;
-    width: 32px;
-    height: 32px;
-    vertical-align: -0.6em;
-    background: url(${iconHeart}) no-repeat;
-  }
+      &.opened {
+        color: ${({ theme }) => theme.colors.text};
+        background: ${({ theme }) => theme.colors.background2};
+        font-weight: bold;
 
-  ul li.opened::before {
-    background: url(${iconHeart}) no-repeat;
-  }
+        &::before {
+          background: url(${iconHeart}) no-repeat;
+        }
 
-  ul li:hover {
-    background-color: var(--bg);
-  }
-
-  ul li.opened:hover {
-    background-color: var(--bg-2);
+        &::hover {
+          background-color: ${({ theme }) => theme.colors.background1};
+        }
+      }
+    }
   }
 
   @media (max-width:748px) {
-    & {
-      padding: 0;
-      top:42px;
-      margin-bottom: -8px;
-    }
+    padding: 0;
+    top:42px;
+    margin-bottom: -8px;
 
-    ul {
+    ul.filterList-ul {
       display: flex;
       flex-direction: row;
       justify-content: space-around;
       gap: 4px;
     }
 
-    ul li {
+    ul.filterList-ul li {
       width: 80px;
       border-radius: 8px;
       box-shadow: 0 0 4px #00000025;

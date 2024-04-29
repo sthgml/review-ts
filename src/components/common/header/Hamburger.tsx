@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import useStateContexts from '../../../hooks/useStateContexts';
 
 const DivHamburger = styled.div`
   #hamburger {
@@ -71,22 +72,17 @@ const DivHamburger = styled.div`
   }
 `;
 
-type HamburgerProps = {
-  isMenuOpen: boolean;
-  handleMenu: () => void;
-};
+export default function Hamburger() {
+  const state = useStateContexts();
+  const { isMenuOpen, setIsMenuOpen } = state;
 
-export default function Hamburger({
-  isMenuOpen, handleMenu,
-}: HamburgerProps) {
   return (
     <DivHamburger>
       <button
         type="button"
         id="hamburger"
-        className={`menu-btn 
-      ${isMenuOpen ? 'opened' : ''}`}
-        onClick={handleMenu}
+        className={`menu-btn ${isMenuOpen ? 'opened' : ''}`}
+        onClick={() => { setIsMenuOpen(!isMenuOpen); }}
       >
         <div className="menu-stroke 1" />
         <div className="menu-stroke 2" />

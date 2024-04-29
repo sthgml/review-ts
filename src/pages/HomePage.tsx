@@ -4,22 +4,27 @@ import DiaryList from '../components/diary-list/DiaryList';
 import BtnNew from '../components/today-modal/BtnNew';
 import TodayModal from '../components/today-modal/TodayModal';
 import FilterList from '../components/filter-list/FilterList';
-import { DiaryData, mockData } from '../components/diary-list/diaries';
+// import { DiaryData, mockData } from '../components/diary-list/diaries';
 import { FilterData, filterData } from '../components/filter-list/filterData';
+import SideMenu from '../components/side-menu/SideMenu';
 
 const Container = styled.main`
-  display: flex;
   position: relative;
 
-  main {
-      display: flex;
-      margin: 0 auto;
-      margin-top: 32px;
-      align-items: flex-start;
-    }
+  div.diary-panel {
+
+    display: flex;
+    justify-content: center;
+
+    width: 100%;
+    height: 100%;
+
+    margin: 0 auto;
+    padding: 32px;
+  }
 
   @media (max-width:748px) {
-    main {
+    & div.diary-panel {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -43,12 +48,15 @@ export default function HomePage() {
 
   return (
     <Container>
-      <FilterList
-        // setDiaryData={setDiaryData}
-        setSelected={setSelected}
-        selected={selected}
-      />
-      <DiaryList />
+      <SideMenu />
+      <div className="diary-panel">
+        <FilterList
+          // setDiaryData={setDiaryData}
+          setSelected={setSelected}
+          selected={selected}
+        />
+        <DiaryList />
+      </div>
       <BtnNew handleNewBtn={handleNewBtn} />
       {isModalOpen && <TodayModal setIsModalOpen={setIsModalOpen} />}
     </Container>

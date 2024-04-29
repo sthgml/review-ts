@@ -8,15 +8,18 @@ import routes from './routes';
 
 import GlobalStyle from './styles/GlobalStyle';
 import DefaultTheme from './styles/defaultTheme';
+import { StateProvider } from './contexts/StateContexts';
 
 const router = createBrowserRouter(routes);
 
 export default function App() {
   return (
-    <ThemeProvider theme={DefaultTheme}>
-      <Reset />
-      <GlobalStyle />
-      <RouterProvider router={router} />
-    </ThemeProvider>
+    <StateProvider>
+      <ThemeProvider theme={DefaultTheme}>
+        <Reset />
+        <GlobalStyle />
+        <RouterProvider router={router} />
+      </ThemeProvider>
+    </StateProvider>
   );
 }

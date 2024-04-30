@@ -5,6 +5,7 @@ import DiaryItem from './DiaryItem';
 import quoteStart from '../../assets/icon/quote-start.png';
 import quoteEnd from '../../assets/icon/quote-end.png';
 import { mockData } from './diaries';
+import CategoryTitle from './CategoryTitle';
 
 const Container = styled.section`
   max-width: 100%;
@@ -108,15 +109,30 @@ const Container = styled.section`
 `;
 
 export default function DiaryList() {
+  const mockSelected = {
+    label: '모든 기록',
+    className: 'tap-all',
+    startTime: 0,
+    endTime: 9999,
+    percent: 42,
+  };
   return (
-    <Container>
-      <ul>
-        {mockData.map((d) => (
-          <li key={d.createdTime.nanoseconds}>
-            <DiaryItem data={d} />
-          </li>
-        ))}
-      </ul>
+    <Container className="old">
+      <h2 className="title typing">
+        <span className="mark">당장</span>
+        &nbsp;기록했던 내용들을 다시 타이핑 해보면서 복습해보세요!
+      </h2>
+
+      <div className="category-24hr">
+        <CategoryTitle selected={mockSelected} />
+        <ul className="note-list">
+          {mockData.map((d) => (
+            <li key={d.createdTime.nanoseconds}>
+              <DiaryItem data={d} />
+            </li>
+          ))}
+        </ul>
+      </div>
     </Container>
   );
 }

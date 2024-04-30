@@ -10,9 +10,9 @@ import SideMenu from '../components/side-menu/SideMenu';
 
 const Container = styled.main`
   position: relative;
+  min-height: calc(100vh - 130px);
 
   div.diary-panel {
-
     display: flex;
     justify-content: center;
 
@@ -30,6 +30,8 @@ const Container = styled.main`
       align-items: center;
       width: 100%;
       margin-top: 12px;
+      margin-bottom: 12px;
+      padding: 0px;
     }
 
     section.old {

@@ -9,11 +9,13 @@ export type Doc = {
 }
 
 export type DiaryData = {
+  id: string;
   doc: Doc;
   createdTime: Timestamp;
 }
 
 export const mockData: DiaryData[] = [{
+  id: '12dva2123',
   doc: {
     title: 'sohee',
     text: '내용내용',
@@ -23,6 +25,7 @@ export const mockData: DiaryData[] = [{
     seconds: 1713694338,
   },
 }, {
+  id: '12dva2123',
   doc: {
     title: 'sohee2',
     text: '내용내용2',

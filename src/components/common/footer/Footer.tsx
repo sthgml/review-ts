@@ -1,17 +1,17 @@
 import styled from 'styled-components';
 
 const Container = styled.footer`
-  position: absolute;
-  bottom: 0;
-  height: 88px;
+  position: relative;
+  bottom: -40px;
+  height: 128px;
   width: 100%;
   background-color: ${({ theme }) => theme.colors.background4};
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
   p.info-text {
+    margin: 0 auto;
+    padding-top: 52px;
+    padding-bottom: 52px;
+    width: fit-content;
     color: ${({ theme }) => theme.colors.secondary};
   }
 `;

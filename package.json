@@ -15,12 +15,14 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3.0.2",
     "@eslint/js": "^9.1.1",
+    "@types/firebase": "^3.2.1",
     "@types/react": "^18.3.1",
     "@types/react-dom": "^18.3.0",
     "@types/react-responsive": "^8.0.8",
     "@types/styled-components": "^5.1.34",
     "@typescript-eslint/eslint-plugin": "^7.7.1",
     "@typescript-eslint/parser": "^7.7.1",
+    "buffer": "^6.0.3",
     "eslint": "^8.40.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-xo-typescript": "^4.0.0",
@@ -33,6 +35,7 @@
     "typescript-eslint": "^7.7.1"
   },
   "dependencies": {
+    "firebase": "^10.11.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-responsive": "^10.0.0",

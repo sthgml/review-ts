@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-// import { useLogout } from '../../../hooks/useLogout';
+import useLogout from '../../../hooks/useLogout';
 
 import iconLogout from '../../../assets/icon/icon-logout.svg';
 import iconLogin from '../../../assets/icon/icon-login.svg';
 import iconJoin from '../../../assets/icon/icon-join.svg';
+import useAuthContext from '../../../hooks/useAuthContext';
 
 const Container = styled.div`
   display: flex;
@@ -32,14 +33,9 @@ const Container = styled.div`
 `;
 
 export default function Right() {
-  const logout = () => {
-  };
-  // const { logout } = useLogout();
+  const { logout } = useLogout();
 
-  const user = {
-    name: 'sohee',
-    email: 'sthgml@naver.com',
-  };
+  const { user } = useAuthContext();
 
   return (
     <Container className="right-header">

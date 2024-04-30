@@ -12,8 +12,8 @@ const routes = [
       { path: '/', element: <HomePage /> },
       { path: '/join', element: <JoinPage /> },
       { path: '/login', element: <LoginPage /> },
-      { path: '*', element: <ErrorPage /> },
     ],
+    errorElement: <ErrorPage />,
   },
 ];
 

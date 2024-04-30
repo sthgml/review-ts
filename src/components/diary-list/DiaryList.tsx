@@ -127,7 +127,7 @@ export default function DiaryList() {
         <CategoryTitle selected={mockSelected} />
         <ul className="note-list">
           {mockData.map((d) => (
-            <li key={d.createdTime.nanoseconds}>
+            <li key={d.createdTime.nanoseconds} className="note-item">
               <DiaryItem data={d} />
             </li>
           ))}

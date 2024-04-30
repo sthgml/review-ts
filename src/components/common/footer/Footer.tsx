@@ -19,11 +19,7 @@ const Container = styled.footer`
 export default function Footer() {
   return (
     <Container>
-      <p className="info-text">
-        copyright |
-        당장복습헤 2023 |
-        박소희 | sthgml@naver.com
-      </p>
+      <p className="info-text assistive-text">Copyright 2023. Sohee Park All rights reserved.</p>
     </Container>
   );
 }

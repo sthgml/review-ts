@@ -1,5 +1,6 @@
 import {
-  KeyboardEventHandler, useEffect, useRef, useState,
+  ChangeEventHandler,
+  useEffect, useRef, useState,
 } from 'react';
 
 // import useFirestore from "../../hooks/useFirestore";
@@ -27,7 +28,7 @@ export default function DiaryItem({ data }: DiaryItemProps) {
     textarea.current.style.height = `${textarea.current.scrollHeight}px`;
   }, [textareaValue]);
 
-  const handleTextareaChange: KeyboardEventHandler = (e) => {
+  const handleTextareaChange: ChangeEventHandler = (e) => {
     const temp = e.target.value;
     setTimeout(() => {
       if (temp === e.target.value) {
@@ -49,32 +50,30 @@ export default function DiaryItem({ data }: DiaryItemProps) {
   };
 
   return (
-    <li key={data.id} className="note-item">
-      <article className="note-article">
-        <h4 className="note-title ell-1">
-          {data.doc.title}
-        </h4>
-        <p className="note-date assistive-text">
-          {timeString}
-        </p>
-        <textarea
-          ref={textarea}
-          className="note-content"
-          placeholder={data.doc.text}
-          defaultValue={data.doc.text}
-          onChange={handleTextareaChange}
-        />
+    <article className="note-article">
+      <h4 className="note-title ell-1">
+        {data.doc.title}
+      </h4>
+      <p className="note-date assistive-text">
+        {timeString}
+      </p>
+      <textarea
+        ref={textarea}
+        className="note-content"
+        placeholder={data.doc.text}
+        defaultValue={data.doc.text}
+        onChange={handleTextareaChange}
+      />
 
-        <div className="div-btns">
-          <button type="button" onClick={() => handleUpdate()} className="edit-btn">
-            <img src={iconEdit} alt="수정" />
-          </button>
-          <span className="divider-btns" />
-          <button type="button" onClick={() => handleDelete()} className="delete-btn">
-            <img src={iconDelete} alt="삭제" />
-          </button>
-        </div>
-      </article>
-    </li>
+      <div className="div-btns">
+        <button type="button" onClick={() => handleUpdate()} className="edit-btn">
+          <img src={iconEdit} alt="수정" />
+        </button>
+        <span className="divider-btns" />
+        <button type="button" onClick={() => handleDelete()} className="delete-btn">
+          <img src={iconDelete} alt="삭제" />
+        </button>
+      </div>
+    </article>
   );
 }

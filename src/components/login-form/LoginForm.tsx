@@ -1,15 +1,18 @@
-import { useEffect, useRef, useState } from 'react';
+import {
+  ChangeEventHandler, useEffect, useRef, useState,
+} from 'react';
 import { Link } from 'react-router-dom';
-// import { useLogin } from '../../hooks/useLogin';
-import logoBig from '../../assets/logos/logo-xl.png';
+
 import Toggle from '../common/toggle/Toggle';
+
+import useLogin from '../../hooks/useLogin';
+import logoBig from '../../assets/logos/logo-xl.png';
 import MainJoin from '../join-from/Join.style';
-// import * as J from '../join/Join.style.jsx';
 
 function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  // const { error, isPending, login } = useLogin();
+  const { error, isPending, login } = useLogin();
 
   const inputEmail = useRef<HTMLInputElement>(null);
   const inputPassword = useRef<HTMLInputElement>(null);
@@ -27,12 +30,12 @@ function LoginForm() {
     }, 400);
   };
 
-  const handleSubmit = (event) => {
-    // event.preventDefault();
-    // login(email, password);
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    await login(email, password);
   };
 
-  const handleCheckChange = async (e) => {
+  const handleCheckChange: ChangeEventHandler = async (e) => {
     const { checked } = e.target;
     if (checked) {
       setEmail('example@exam.ple');
@@ -44,7 +47,6 @@ function LoginForm() {
   };
 
   useEffect(() => {
-    // console.log(email, password)
     if (!inputEmail.current || !inputPassword.current) return;
     inputEmail.current.value = email;
     inputPassword.current.value = password;
@@ -63,18 +65,6 @@ function LoginForm() {
         name="user-info-join"
         onSubmit={handleSubmit}
       >
-        {/* <Input
-          label={"이메일"}
-          type={"email"}
-          id={"user-email"}
-          name={"user-email"}
-          className={"user-email"}
-          placeholder={"example@exam.ple"}
-          onKeyUp={handleData}
-          isRequired={true}
-          warningText={"아이디를 확인해주세요!"}
-        /> */}
-
         <div className="input-user-email">
           <label htmlFor="user-email">
             이메일
@@ -89,11 +79,11 @@ function LoginForm() {
             onKeyUp={handleData}
             required
           />
-          {/* {error && (
+          {error && (
             <p className="warning-text">
               아이디를 확인해주세요!
             </p>
-          )} */}
+          )}
         </div>
 
         <div className="input-user-pw">
@@ -110,16 +100,16 @@ function LoginForm() {
             onChange={handleData}
             required
           />
-          {/* {error && (
+          {error && (
             <p className="warning-text">
               비밀번호를 확인해주세요!
             </p>
-          )} */}
+          )}
         </div>
 
         <Toggle onChange={handleCheckChange} />
 
-        {/* {isPending
+        {isPending
           ? <strong>로그인이 진행중입니다.</strong>
           : (
             <button
@@ -128,26 +118,8 @@ function LoginForm() {
             >
               로그인
             </button>
-          )} */}
+          )}
       </form>
-      {/* 소셜로그인
-        <div className="division">
-            <hr className="division-line" />
-            <p className="or">또는</p>
-        </div>
-        <div className="social-login">
-            <button type="submit" className="btn-join">
-                로그인
-            </button>
-            <button type="submit" className="btn-join">
-                로그인
-            </button><button type="submit" className="btn-join">
-                로그인
-            </button><button type="submit" className="btn-join">
-                로그인
-            </button>
-        </div> */}
-      <p className="assistive-text">Copyright 2023. Sohee Park All rights reserved.</p>
     </MainJoin>
   );
 }

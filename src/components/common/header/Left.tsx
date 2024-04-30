@@ -8,6 +8,7 @@ import Hamburger from './Hamburger';
 
 import logoSm from '../../../assets/logos/logo-sm.png';
 import logoXs from '../../../assets/logos/logo-xs.png';
+import useAuthContext from '../../../hooks/useAuthContext';
 
 const Container = styled.div`
   &.left-header {
@@ -33,29 +34,18 @@ const Container = styled.div`
 `;
 
 export default function Left() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const isMobile: boolean = useMediaQuery({
     query: '(max-width: 475px)',
   });
 
-  const user = {
-    name: 'sohee',
-    email: 'sthgml@naver.com',
-  };
-
-  const handleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+  const { user } = useAuthContext();
 
   return (
     <Container className="left-header">
       {
         user
             && (
-              <Hamburger
-                isMenuOpen={isMenuOpen}
-                handleMenu={handleMenu}
-              />
+              <Hamburger />
             )
       }
 

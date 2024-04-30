@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import DiaryList from '../components/diary-list/DiaryList';
 import BtnNew from '../components/today-modal/BtnNew';
 import TodayModal from '../components/today-modal/TodayModal';
@@ -7,6 +8,7 @@ import FilterList from '../components/filter-list/FilterList';
 // import { DiaryData, mockData } from '../components/diary-list/diaries';
 import { FilterData, filterData } from '../components/filter-list/filterData';
 import SideMenu from '../components/side-menu/SideMenu';
+import useAuthContext from '../hooks/useAuthContext';
 
 const Container = styled.main`
   position: relative;
@@ -41,6 +43,15 @@ const Container = styled.main`
 `;
 
 export default function HomePage() {
+  const { user } = useAuthContext();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user?.email) {
+      navigate('/login');
+    }
+  }, [user?.email]);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   // const [diaryData, setDiaryData] = useState<DiaryData>();
   const [selected, setSelected] = useState<FilterData>(filterData[0]);

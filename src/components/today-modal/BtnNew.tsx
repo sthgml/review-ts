@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const Container = styled.button`
   position: fixed;
   margin-left: 16px;
-  bottom: 120px;
+  bottom: 40px;
   right: 32px;
 
   width: 65px;

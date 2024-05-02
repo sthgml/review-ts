@@ -2,10 +2,13 @@ import { Dispatch, SetStateAction } from 'react';
 import styled from 'styled-components';
 
 import { Dim } from '../side-menu/SideMenu';
+import DiaryForm from './DiaryForm';
 
 import quoteStart from '../../assets/icon/quote-start.png';
 import quoteEnd from '../../assets/icon/quote-end.png';
-import DiaryForm from './DiaryForm';
+import quoteStartLight from '../../assets/icon/light/quote-start-light.svg';
+import quoteEndLight from '../../assets/icon/light/quote-end-light.svg';
+
 import useAuthContext from '../../hooks/useAuthContext';
 
 const Container = styled.div`
@@ -69,14 +72,14 @@ const Container = styled.div`
 
   h2.title::before {
     content: '';
-    background: url(${quoteStart}) center/contain no-repeat;
+    background: url(${(props) => (props.theme.colors.background1 === '#ffffff' ? quoteStartLight : quoteStart)}) center/contain no-repeat;
     width: 60px;
     height: 60px;
   }
 
   h2.title::after {
     content: '';
-    background: url(${quoteEnd}) center/contain no-repeat;
+    background: url(${(props) => (props.theme.colors.background1 === '#ffffff' ? quoteEndLight : quoteEnd)}) center/contain no-repeat;
     width: 60px;
     height: 60px;
   }

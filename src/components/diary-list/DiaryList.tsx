@@ -1,11 +1,17 @@
 import styled from 'styled-components';
+import { useEffect, useState } from 'react';
+
+import { type DocumentData } from 'firebase/firestore';
+import { type FilterData } from '../filter-list/filterData';
 
 import DiaryItem from './DiaryItem';
+import CategoryTitle from './CategoryTitle';
 
 import quoteStart from '../../assets/icon/quote-start.png';
 import quoteEnd from '../../assets/icon/quote-end.png';
-import { mockData } from './diaries';
-import CategoryTitle from './CategoryTitle';
+
+import useCollection from '../../hooks/useCollection';
+import useAuthContext from '../../hooks/useAuthContext';
 
 const Container = styled.section`
   max-width: 100%;
@@ -30,40 +36,37 @@ const Container = styled.section`
 
   h2 {
     margin: 0;
-  }
 
-  h2 span {
+    span {
     flex-shrink: 0;
     margin-right: 12px;
   }
+  }
 
-  .note-list,
-  .one-day .note-list,
-  .one-week .note-list,
-  .one-month .note-list {
+  .note-list {
     display: flex;
     flex-direction: column;
     gap: 32px;
-  }
 
-  .note-list article {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
+    article {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
 
-    max-width: 100%;
-    width: 478px;
-    padding: 30px 28px 35px;
-    border-radius: 16px;
-    background-color: ${({ theme }) => theme.colors.background1};
-    box-shadow: 0 0 8px ${({ theme }) => theme.colors.background1};
-    transition: all 0.2s;
-  }
+      max-width: 100%;
+      width: 478px;
+      padding: 30px 28px 35px;
+      border-radius: 16px;
+      background-color: ${({ theme }) => theme.colors.background1};
+      box-shadow: 0 0 8px ${({ theme }) => theme.colors.background1};
+      transition: all 0.2s;
 
-  .note-list article:hover {
-    box-shadow: 0 0 50px ${({ theme }) => theme.colors.background1};
-    transform: scale(1.02);
+      &:hover {
+        box-shadow: 0 0 50px ${({ theme }) => theme.colors.background1};
+        transform: scale(1.02);
+      }
+    }
   }
 
   .note-title {
@@ -87,10 +90,10 @@ const Container = styled.section`
     resize: none;
     border-radius: 8px;
     padding: 4px;
-  }
 
-  .note-content:hover {
-    background-color: ${({ theme }) => theme.colors.background3};
+    &:hover {
+      background-color: ${({ theme }) => theme.colors.background3};
+    }
   }
 
   @media (max-width:500px) {
@@ -108,14 +111,23 @@ const Container = styled.section`
   }
 `;
 
-export default function DiaryList() {
-  const mockSelected = {
-    label: '모든 기록',
-    className: 'tap-all',
-    startTime: 0,
-    endTime: 9999,
-    percent: 42,
+type DiaryListProps = {
+  selected: FilterData;
+}
+
+export default function DiaryList({ selected } : DiaryListProps) {
+  const { user } = useAuthContext();
+
+  const { documents } = useCollection('diary', ['doc.uid', '==', user?.uid ?? '']);
+  const [diaryData, setDiaryData] = useState<DocumentData[] | null>(documents);
+  const syncData = () => {
+    setDiaryData(documents);
   };
+
+  useEffect(() => {
+    syncData();
+  }, [documents]);
+
   return (
     <Container className="old">
       <h2 className="title typing">
@@ -124,10 +136,10 @@ export default function DiaryList() {
       </h2>
 
       <div className="category-24hr">
-        <CategoryTitle selected={mockSelected} />
+        <CategoryTitle selected={selected} />
         <ul className="note-list">
-          {mockData.map((d) => (
-            <li key={d.createdTime.nanoseconds} className="note-item">
+          {diaryData && diaryData.map((d) => (
+            <li key={`${d.id}`} className="note-item">
               <DiaryItem data={d} />
             </li>
           ))}

@@ -4,12 +4,12 @@ import {
 } from 'react';
 
 // import useFirestore from "../../hooks/useFirestore";
+import { DocumentData } from 'firebase/firestore';
 import iconEdit from '../../assets/icon/icon-edit-bk.png';
 import iconDelete from '../../assets/icon/icon-delete.svg';
-import { type DiaryData } from './diaries';
 
 type DiaryItemProps = {
-  data: DiaryData
+  data: DocumentData
 }
 
 export default function DiaryItem({ data }: DiaryItemProps) {

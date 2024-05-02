@@ -1,12 +1,14 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
+import { useState } from 'react';
 import useLogout from '../../../hooks/useLogout';
 
 import iconLogout from '../../../assets/icon/icon-logout.svg';
 import iconLogin from '../../../assets/icon/icon-login.svg';
 import iconJoin from '../../../assets/icon/icon-join.svg';
 import useAuthContext from '../../../hooks/useAuthContext';
+import Toggle from '../toggle/Toggle';
 
 const Container = styled.div`
   display: flex;
@@ -22,7 +24,7 @@ const Container = styled.div`
   }
 
   @media (max-width: 475px) {
-    .text-logout {
+    .text-logout, p.welcome-text {
       display: none;
     }
 
@@ -37,14 +39,21 @@ export default function Right() {
 
   const { user } = useAuthContext();
 
+  const [lightTheme, setLightTheme] = useState(false);
+
   return (
     <Container className="right-header">
+      <Toggle
+        onChange={() => { setLightTheme(!lightTheme); }}
+        labelText="theme"
+      />
       {user
         ? (
           <>
             <p className="welcome-text">
               <span className="welcome">환영합니다.&nbsp;</span>
-              <span className="mark">홍길동님</span>
+              <span className="mark">{user.displayName}</span>
+              <span>님!</span>
             </p>
 
             <span>|</span>

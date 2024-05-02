@@ -7,6 +7,11 @@ import Footer from './common/footer/Footer';
 
 const Container = styled.div`
   height: 100vh;
+  position: relative;
+
+  main {
+    margin-top: 60px;
+  }
 `;
 
 export default function Layout() {

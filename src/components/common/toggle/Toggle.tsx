@@ -2,9 +2,9 @@ import { ChangeEventHandler, useRef } from 'react';
 import styled from 'styled-components';
 
 const ToggleDiv = styled.div`
-  margin-top: 12px;
-  margin-left: 56px;
   position: relative;
+  width: fit-content;
+  height: fit-content;
 
   input {
     display: none;
@@ -62,13 +62,18 @@ const ToggleDiv = styled.div`
   input:checked + #toggle-ball {
     background-color: ${({ theme }) => theme.colors.primary};
   }
+
+  label {
+    color: ${({ theme }) => theme.colors.text}
+  }
 `;
 
 type ToggleProps = {
-  onChange: ChangeEventHandler
+  onChange: ChangeEventHandler;
+  labelText: string;
 }
 
-export default function Toggle({ onChange }: ToggleProps) {
+export default function Toggle({ onChange, labelText }: ToggleProps) {
   const checkboxInput = useRef<HTMLInputElement>(null);
   const handleClickToggleBall = () => {
     checkboxInput.current?.click();
@@ -76,7 +81,7 @@ export default function Toggle({ onChange }: ToggleProps) {
 
   return (
     <ToggleDiv>
-      <label htmlFor="btn-test">테스트 계정으로 체험하기</label>
+      <label htmlFor="btn-test">{labelText}</label>
       <input ref={checkboxInput} type="checkbox" id="btn-test" onChange={onChange} />
       <button type="button" id="toggle-ball" onClick={handleClickToggleBall}>
         <span className="a11y-hidden">toggle-ball</span>

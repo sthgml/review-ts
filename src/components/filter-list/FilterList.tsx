@@ -1,18 +1,21 @@
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useEffect } from 'react';
 import styled from 'styled-components';
 
-// import useCollection from '../../../hooks/useCollection.jsx';
-// import { useAuthContext } from '../../../hooks/useAuthContext.jsx';
-
+import { DocumentData } from 'firebase/firestore';
 import iconHeart from '../../assets/icon/heart.svg';
 
 import { type FilterData, filterData } from './filterData';
+
+import useAuthContext from '../../hooks/useAuthContext';
+import useCollection from '../../hooks/useCollection';
 
 const Container = styled.nav`
   padding: 48px 0;
   position: sticky;
   top: 68px;
+
   z-index: 20;
+  height: fit-content;
 
   ul.filterList-ul {
     display: flex;
@@ -21,13 +24,14 @@ const Container = styled.nav`
 
     font-size: 16px;
     
-    li {
+    li > button {
       cursor: pointer;
       color: ${({ theme }) => theme.colors.secondary};
       background: ${({ theme }) => theme.colors.background4};
       padding: 8px 24px 8px 16px;
       border-radius: 8px 0 0 8px;
       transition: all 0.2s;
+      width: 160px;
 
       &::before {
         content: '';
@@ -59,60 +63,75 @@ const Container = styled.nav`
   }
 
   @media (max-width:748px) {
-    padding: 0;
-    top:42px;
-    margin-bottom: -8px;
+    & {
+      width: 100vw;
+      padding: 0;
+      position: fixed;
+      top: calc(100vh - 88px);
+      z-index: 30;
+      margin-bottom: -8px;
+    }
 
     ul.filterList-ul {
-      display: flex;
       flex-direction: row;
-      justify-content: space-around;
+      justify-content: center;
       gap: 4px;
     }
 
-    ul.filterList-ul li {
-      width: 80px;
+    ul.filterList-ul li > button {
+      width: 72px;
+      height: 128px;
+      padding: 12px 8px;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
       border-radius: 8px;
       box-shadow: 0 0 4px #00000025;
+
+      font-size: 12px;
+      word-break: keep-all;
     }
   }
 `;
 
 type FilterListProps = {
-  // setDiaryData: Dispatch<SetStateAction<DiaryData>>;
+  setDiaryData: Dispatch<SetStateAction<DiaryData[]>>;
   selected: FilterData;
   setSelected: Dispatch<SetStateAction<FilterData>>;
 }
 
 export default function FilterList({
-  // setDiaryData,
+  setDiaryData,
   selected,
   setSelected,
 }: FilterListProps) {
-  // const { user } = useAuthContext();
-  // const { documents } = useCollection( 'diary', ['doc.uid', '==', user.uid] );
-  // const documents = mockData;
+  const { user } = useAuthContext();
+  const { documents } = useCollection('diary', ['doc.uid', '==', user?.uid ?? '']);
 
   const handleDiaryFilter: React.MouseEventHandler<HTMLButtonElement> = (e) => {
-    const newSelected = filterData.find((datum) => datum.endTime === e.target.getAttribute('data-end')) ?? filterData[0];
+    const clickedEndTime = Number(e.target.getAttribute('data-end'));
+    const newSelected = filterData
+      .find((datum) => datum.endTime === clickedEndTime)
+      ?? filterData[0];
     setSelected(newSelected);
   };
 
-  // useEffect(() => {
-  //   if (!documents) return;
+  useEffect(() => {
+    if (!documents) return;
 
-  //   const filteredDocuments = documents.filter((doc: Doc) => {
-  //     // const createdTime = doc.createdTime.toDate();
-  //     // const now = new Date();
-  //     // const diff = now - createdTime;
-  //     const diff = 0;
-  //     const selectedMilliEnd = Number(selected.endTime) * 60 * 60 * 1000;
-  //     const selectedMilliStart = Number(selected.startTime) * 60 * 60 * 1000;
-  //     return diff < selectedMilliEnd && diff > selectedMilliStart;
-  //   });
+    const filteredDocuments = documents.filter((doc: DocumentData) => {
+      const createdTime = doc.createdTime.toDate();
+      const now = new Date();
+      const diff = now - createdTime;
+      const selectedMilliEnd = Number(selected.endTime) * 60 * 60 * 1000;
+      const selectedMilliStart = Number(selected.startTime) * 60 * 60 * 1000;
+      return diff < selectedMilliEnd && diff > selectedMilliStart;
+    });
 
-  //   setDiaryData(filteredDocuments);
-  // }, [selected]);
+    setDiaryData(filteredDocuments);
+  }, [selected]);
 
   return (
     <Container className="filterList">
@@ -126,7 +145,7 @@ export default function FilterList({
               data-end={datum.endTime}
               className={`${datum.className} ${
                 datum.startTime === selected.startTime
-                        && datum.endTime === selected.endTime
+                  && datum.endTime === selected.endTime
                   ? 'opened' : ''}`}
               onClick={handleDiaryFilter}
             >

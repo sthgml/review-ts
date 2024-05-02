@@ -16,7 +16,7 @@ const actionTypes = {
 type ActionType = typeof actionTypes;
 
 type Action =
-  | {
+  {
       type: ActionType['login'],
       payload: UserInfo
     }

@@ -3,11 +3,19 @@ import {
 } from 'react';
 import { Link } from 'react-router-dom';
 
+import styled from 'styled-components';
 import Toggle from '../common/toggle/Toggle';
 
 import useLogin from '../../hooks/useLogin';
 import logoBig from '../../assets/logos/logo-xl.png';
 import MainJoin from '../join-from/Join.style';
+
+const MainLogin = styled(MainJoin)`
+  div.test-toggle-div {
+    margin-top: 12px;
+    margin-left: 60px;
+  }
+`;
 
 function LoginForm() {
   const [email, setEmail] = useState('');
@@ -53,7 +61,7 @@ function LoginForm() {
   }, [email, password]);
 
   return (
-    <MainJoin className="main">
+    <MainLogin className="main">
       <Link to="./">
         <img src={logoBig} alt="당장복습헤 로고" className="logo-big" />
       </Link>
@@ -107,7 +115,9 @@ function LoginForm() {
           )}
         </div>
 
-        <Toggle onChange={handleCheckChange} />
+        <div className="test-toggle-div">
+          <Toggle onChange={handleCheckChange} labelText="테스트 계정으로 체험하기" />
+        </div>
 
         {isPending
           ? <strong>로그인이 진행중입니다.</strong>
@@ -120,7 +130,7 @@ function LoginForm() {
             </button>
           )}
       </form>
-    </MainJoin>
+    </MainLogin>
   );
 }
 export default LoginForm;

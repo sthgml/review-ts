@@ -14,6 +14,10 @@ const Container = styled.button`
   z-index: 10;
   order: 10;
   background-color: ${({ theme }) => theme.colors.primary};
+
+  @media (max-width: 748px) {
+    transform: translateY(-72px);
+  }
   
   .x-1,
   .x-2 {

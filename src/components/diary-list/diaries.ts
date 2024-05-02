@@ -1,16 +1,13 @@
+import { DocumentData, DocumentReference } from 'firebase/firestore';
+
 export type Timestamp = {
   seconds: number;
   nanoseconds: number;
 }
 
-export type Doc = {
-  title: string;
-  text: string;
-}
-
 export type DiaryData = {
   id: string;
-  doc: Doc;
+  doc: DocumentData;
   createdTime: Timestamp;
 }
 

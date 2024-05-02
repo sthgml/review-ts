@@ -7,6 +7,7 @@ import quoteStart from '../../assets/icon/quote-start.png';
 import quoteEnd from '../../assets/icon/quote-end.png';
 import iconHeart from '../../assets/icon/heart.svg';
 import DiaryForm from './DiaryForm';
+import useAuthContext from '../../hooks/useAuthContext';
 
 const Container = styled.div`
   &.today { 
@@ -17,13 +18,36 @@ const Container = styled.div`
     z-index: 50;
 
     padding: 32px 24px;
-    width: 464px;
     flex-direction: column;
 
-    min-width: 464px;
-    max-width: 100%;
     background: ${({ theme }) => theme.colors.background1};
     border-radius: 16px;  
+
+    width: 50%;
+    height: 50%;
+
+    max-width: 100vw;
+    max-height: 100vh;
+    overflow-y: scroll;
+
+    ::-webkit-scrollbar {
+      display: none;
+    }
+
+    @media (max-width: 748px) {
+      padding: 24px 16px;
+      width: 95%;
+      height:70%;
+
+      .form {
+        padding: 0px;
+        gap: 16px;
+        
+        textarea {
+          height: 200px;
+        }
+      }
+    }
   }
 
   .form {
@@ -32,9 +56,10 @@ const Container = styled.div`
     border-radius: 16px;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     gap: 16px;
-    max-width: 100%;
-    min-width: 368px;
+
+    height: calc(100% - 100px);
   }
 
   h2 {
@@ -61,10 +86,9 @@ const Container = styled.div`
 export default function TodayModal({ setIsModalOpen }: {
   setIsModalOpen: Dispatch<SetStateAction<boolean>>;
 }) {
-  // const { user } = useAuthContext();
+  const { user } = useAuthContext();
   const handleClose = () => {
     setIsModalOpen(false);
-    // console.log('modal close');
   };
 
   return (
@@ -76,17 +100,7 @@ export default function TodayModal({ setIsModalOpen }: {
           &nbsp;기록해서 복습하기
         </h2>
 
-        <h3 className="title">
-          <img src={iconHeart} alt="icon-heart" className="icon-heart" />
-          <strong>당장</strong>
-          {' '}
-            &nbsp;기록해서 복습하면&nbsp;
-          <strong>42%</strong>
-            &nbsp;를 더 기억할 수 있어요!
-        </h3>
-
-        {/* <DiaryForm uid={user.uid} handleClose={handleClose} /> */}
-        <DiaryForm />
+        <DiaryForm uid={user?.uid} handleClose={handleClose} />
       </Container>
       <Dim className="dim" onClick={handleClose} />
     </>

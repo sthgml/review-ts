@@ -5,14 +5,14 @@ import DiaryList from '../components/diary-list/DiaryList';
 import BtnNew from '../components/today-modal/BtnNew';
 import TodayModal from '../components/today-modal/TodayModal';
 import FilterList from '../components/filter-list/FilterList';
-// import { DiaryData, mockData } from '../components/diary-list/diaries';
 import { FilterData, filterData } from '../components/filter-list/filterData';
 import SideMenu from '../components/side-menu/SideMenu';
 import useAuthContext from '../hooks/useAuthContext';
+import { DiaryData, mockData } from '../components/diary-list/diaries';
 
 const Container = styled.main`
   position: relative;
-  min-height: calc(100vh - 130px);
+  min-height: calc(100vh - 130px - 60px);
 
   div.diary-panel {
     display: flex;
@@ -53,7 +53,7 @@ export default function HomePage() {
   }, [user?.email]);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  // const [diaryData, setDiaryData] = useState<DiaryData>();
+  const [diaryData, setDiaryData] = useState<DiaryData[]>(mockData);
   const [selected, setSelected] = useState<FilterData>(filterData[0]);
   const handleNewBtn = () => {
     setIsModalOpen(true);
@@ -64,11 +64,11 @@ export default function HomePage() {
       <SideMenu />
       <div className="diary-panel">
         <FilterList
-          // setDiaryData={setDiaryData}
+          setDiaryData={setDiaryData}
           setSelected={setSelected}
           selected={selected}
         />
-        <DiaryList />
+        <DiaryList selected={selected} />
       </div>
       <BtnNew handleNewBtn={handleNewBtn} />
       {isModalOpen && <TodayModal setIsModalOpen={setIsModalOpen} />}

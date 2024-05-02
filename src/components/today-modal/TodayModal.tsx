@@ -5,7 +5,6 @@ import { Dim } from '../side-menu/SideMenu';
 
 import quoteStart from '../../assets/icon/quote-start.png';
 import quoteEnd from '../../assets/icon/quote-end.png';
-import iconHeart from '../../assets/icon/heart.svg';
 import DiaryForm from './DiaryForm';
 import useAuthContext from '../../hooks/useAuthContext';
 

@@ -6,9 +6,12 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Toggle from '../common/toggle/Toggle';
 
-import useLogin from '../../hooks/useLogin';
 import logoBig from '../../assets/logos/logo-xl.png';
+import logoBigLight from '../../assets/icon/light/logo-xl-light.png';
+
 import MainJoin from '../join-from/Join.style';
+import useLogin from '../../hooks/useLogin';
+import useStateContexts from '../../hooks/useStateContexts';
 
 const MainLogin = styled(MainJoin)`
   div.test-toggle-div {
@@ -20,7 +23,9 @@ const MainLogin = styled(MainJoin)`
 function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
   const { error, isPending, login } = useLogin();
+  const { lightTheme } = useStateContexts();
 
   const inputEmail = useRef<HTMLInputElement>(null);
   const inputPassword = useRef<HTMLInputElement>(null);
@@ -63,7 +68,7 @@ function LoginForm() {
   return (
     <MainLogin className="main">
       <Link to="./">
-        <img src={logoBig} alt="당장복습헤 로고" className="logo-big" />
+        <img src={lightTheme ? logoBigLight : logoBig} alt="당장복습헤 로고" className="logo-big" />
       </Link>
       <h1 className="mark">로그인</h1>
       <form

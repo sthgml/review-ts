@@ -27,6 +27,10 @@ const Container = styled.div`
     gap: 4px;
   }
 
+  .nickname {
+    color: ${(props) => props.theme.colors.text};
+  }
+
   @media (max-width: 475px) {
     .text-logout, p.welcome-text {
       display: none;
@@ -59,7 +63,7 @@ export default function Right() {
           <>
             <p className="welcome-text">
               <span className="welcome">환영합니다.&nbsp;</span>
-              <span className="mark">{user.displayName}</span>
+              <Link to="/mypage" className="nickname mark">{user.displayName}</Link>
               <span>님!</span>
             </p>
 

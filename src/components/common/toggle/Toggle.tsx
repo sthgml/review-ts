@@ -38,7 +38,7 @@ const ToggleDiv = styled.div`
       left: 2px;
 
       background-color: ${({ theme }) => theme.colors.secondary};
-      box-shadow: inset -2px -2px 2px #355048, inset 2px 2px 2px #83a099;
+      box-shadow: inset -2px -2px 2px #00000049, inset 2px 2px 2px #ffffff99;
       transition: 0.3s;
     }
 

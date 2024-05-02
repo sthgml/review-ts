@@ -11,14 +11,11 @@ import LightTheme from '../styles/lightTheme';
 import DefaultTheme from '../styles/defaultTheme';
 import Theme from '../styles/Theme';
 import GlobalStyle from '../styles/GlobalStyle';
+import SideMenu from './side-menu/SideMenu';
 
 const Container = styled.div`
   max-height: 100vh;
   position: relative;
-
-  main {
-    margin-top: 60px;
-  }
 `;
 
 export default function Layout() {
@@ -39,6 +36,7 @@ export default function Layout() {
       <GlobalStyle />
       <Container>
         <Header />
+        <SideMenu />
         <Outlet />
         <Footer />
       </Container>

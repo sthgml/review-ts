@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import iconDofDay from '../../assets/icon/icon-d-of-day.png';
+import iconDofDayLigt from '../../assets/icon/light/icon-d-of-day-light.png';
 import { FilterData } from '../filter-list/filterData';
+import useStateContexts from '../../hooks/useStateContexts';
 
 type CategoryTitleProps = {
   selected: FilterData
@@ -16,9 +18,10 @@ const Container = styled.h3`
 `;
 
 export default function CategoryTitle({ selected }: CategoryTitleProps) {
+  const { lightTheme } = useStateContexts();
   return (
     <Container className="title">
-      <img src={iconDofDay} alt="icon-d-of-day" className="icon-d-of-day" />
+      <img src={lightTheme ? iconDofDayLigt : iconDofDay} alt="icon-d-of-day" className="icon-d-of-day" />
       <p>
         {
           selected?.label === '모든 기록'

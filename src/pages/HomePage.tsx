@@ -7,9 +7,8 @@ import BtnNew from '../components/today-modal/BtnNew';
 import TodayModal from '../components/today-modal/TodayModal';
 import FilterList from '../components/filter-list/FilterList';
 import { FilterData, filterData } from '../components/filter-list/filterData';
-import SideMenu from '../components/side-menu/SideMenu';
 import useAuthContext from '../hooks/useAuthContext';
-import { DiaryData, mockData } from '../components/diary-list/diaries';
+import { mockData } from '../components/diary-list/diaries';
 import useCollection from '../hooks/useCollection';
 
 const Container = styled.main`
@@ -36,10 +35,6 @@ const Container = styled.main`
       margin-top: 12px;
       margin-bottom: 12px;
       padding: 0px;
-    }
-
-    section.old {
-      margin-top: 0;
     }
   } 
 `;
@@ -69,7 +64,6 @@ export default function HomePage() {
 
   return (
     <Container>
-      <SideMenu />
       <div className="diary-panel">
         <FilterList
           setDiaryData={setDiaryData}

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import { type DocumentData } from 'firebase/firestore';
 import iconHeart from '../../assets/icon/heart.svg';
+import iconHeartLight from '../../assets/icon/light/heart-light.svg';
 
 import { type FilterData, filterData } from './filterData';
 
@@ -26,7 +27,7 @@ const Container = styled.nav`
     
     li > button {
       cursor: pointer;
-      color: ${({ theme }) => theme.colors.secondary};
+      color: ${({ theme }) => theme.colors.secondaryText};
       background: ${({ theme }) => theme.colors.background4};
       padding: 8px 24px 8px 16px;
       border-radius: 8px 0 0 8px;
@@ -39,7 +40,8 @@ const Container = styled.nav`
         width: 32px;
         height: 32px;
         vertical-align: -0.6em;
-        background: url(${iconHeart}) no-repeat;
+        background: url(${(props) => (props.theme.colors.background1 === '#ffffff' ? iconHeartLight : iconHeart)}) no-repeat;
+        opacity: 0.5;
       }
 
       &:hover {
@@ -52,7 +54,8 @@ const Container = styled.nav`
         font-weight: bold;
 
         &::before {
-          background: url(${iconHeart}) no-repeat;
+          background: url(${(props) => (props.theme.colors.background1 === '#ffffff' ? iconHeartLight : iconHeart)}) no-repeat;
+          opacity: 1;
         }
 
         &::hover {
@@ -97,7 +100,7 @@ const Container = styled.nav`
 `;
 
 type FilterListProps = {
-  setDiaryData: Dispatch<SetStateAction<DiaryData[]>>;
+  setDiaryData: Dispatch<SetStateAction<DocumentData[] | null>>;
   selected: FilterData;
   setSelected: Dispatch<SetStateAction<FilterData>>;
 }
@@ -130,7 +133,6 @@ export default function FilterList({
       return diff < selectedMilliEnd && diff > selectedMilliStart;
     });
 
-    console.log(filteredDocuments);
     setDiaryData(filteredDocuments);
   }, [selected]);
 

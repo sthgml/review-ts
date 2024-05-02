@@ -7,6 +7,8 @@ import DiaryItem from './DiaryItem';
 import CategoryTitle from './CategoryTitle';
 
 const Container = styled.section`
+  margin-top: 80px;
+
   max-width: 100%;
   width: fit-content;
   padding: 32px 48px;

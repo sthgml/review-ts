@@ -141,7 +141,7 @@ const GlobalStyle = createGlobalStyle<GlobalStyleProps>`
   }
 
   [class^="user-"]::placeholder {
-    color: ${({ theme }) => theme.colors.secondary}88;
+    color: ${({ theme }) => theme.colors.secondaryText}88;
     line-height: 20px;
   }
 
@@ -177,7 +177,7 @@ const GlobalStyle = createGlobalStyle<GlobalStyleProps>`
   .assistive-text {
     font-size: 12px;
     line-height: 16px;
-    color: ${({ theme }) => theme.colors.secondary};
+    color: ${({ theme }) => theme.colors.secondaryText};
   }
 
   .mark {

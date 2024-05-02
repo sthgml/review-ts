@@ -33,6 +33,9 @@ const Container = styled.ul`
   li {
     width: 100%;
     padding: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
   }
 `;
 

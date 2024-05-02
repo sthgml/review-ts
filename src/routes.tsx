@@ -4,6 +4,7 @@ import ErrorPage from './pages/ErrorPage';
 import HomePage from './pages/HomePage';
 import JoinPage from './pages/JoinPage';
 import LoginPage from './pages/LoginPage';
+import MyPage from './pages/MyPage';
 
 const routes = [
   {
@@ -12,6 +13,7 @@ const routes = [
       { path: '/', element: <HomePage /> },
       { path: '/join', element: <JoinPage /> },
       { path: '/login', element: <LoginPage /> },
+      { path: '/mypage', element: <MyPage /> },
     ],
     errorElement: <ErrorPage />,
   },

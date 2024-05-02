@@ -3,8 +3,9 @@
 const DefaultTheme = {
   colors: {
     text: '#DDE0E4', // em
+    secondaryText: '#677880', // medium
     primary: '#96F2D7',
-    secondary: '#677880', // medium
+    secondary: '#677880',
     background1: '#2F3B4B', // bg-2
     background2: '#263140', // bg
     background3: '#1d242c', // bg-3

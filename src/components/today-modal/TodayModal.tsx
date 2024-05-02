@@ -20,7 +20,7 @@ const Container = styled.div`
     padding: 32px 24px;
     flex-direction: column;
 
-    background: ${({ theme }) => theme.colors.background1};
+    background: ${({ theme }) => theme.colors.background2};
     border-radius: 16px;  
 
     width: 50%;

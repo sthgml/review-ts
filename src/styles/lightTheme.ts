@@ -3,8 +3,9 @@
 const LightTheme = {
   colors: {
     text: '#505050', // em
+    secondaryText: '#66727C', // medium
     primary: '#51A3EE',
-    secondary: '#66727C', // medium
+    secondary: '#B9E1FF',
     background1: '#ffffff', // bg-2
     background2: '#EDF8FF', // bg
     background3: '#E2F4FF', // bg-3

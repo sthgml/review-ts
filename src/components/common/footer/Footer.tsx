@@ -12,7 +12,7 @@ const Container = styled.footer`
     padding-top: 52px;
     padding-bottom: 52px;
     width: fit-content;
-    color: ${({ theme }) => theme.colors.secondary};
+    color: ${({ theme }) => theme.colors.secondaryText};
   }
 
   @media (max-width: 748px) {

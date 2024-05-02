@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useState } from 'react';
 import { appAuth } from '../firebase/config';

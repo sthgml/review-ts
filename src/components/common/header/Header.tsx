@@ -80,8 +80,9 @@ function Header() {
       onMouseEnter={() => {
         setHide(false);
       }}
-      onMouseLeave={() => {
+      onMouseLeave={(e) => {
         setHide(true);
+        throttleScroll(e);
       }}
       className={
         hide ? 'hide' : ''

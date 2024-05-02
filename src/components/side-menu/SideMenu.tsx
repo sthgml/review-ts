@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 import useStateContexts from '../../hooks/useStateContexts';
 
 export const Dim = styled.div`
@@ -19,7 +20,7 @@ const Container = styled.ul`
   position: fixed;
   z-index: 40;
   left: -240px;
-  top: 60px;
+  top: 0;
   
   background: ${({ theme }) => theme.colors.background4};
   transition: all 0.5s;
@@ -37,8 +38,10 @@ const Container = styled.ul`
 
 export default function SideMenu() {
   const { isMenuOpen, setIsMenuOpen } = useStateContexts();
+  const navigate = useNavigate();
   const handleClose = () => {
     setIsMenuOpen(false);
+    navigate('/mypage');
   };
 
   return (
@@ -46,7 +49,7 @@ export default function SideMenu() {
       {isMenuOpen && <Dim onClick={handleClose} />}
       <Container className={`paper-list ${isMenuOpen ? 'opened' : ''}`}>
         <li>
-          <button className="btn-settings" type="button" onClick={handleClose}>추후 개발 예정</button>
+          <button className="btn-settings" type="button" onClick={handleClose}>마이페이지</button>
         </li>
       </Container>
     </>

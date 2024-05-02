@@ -1,14 +1,18 @@
-import { useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 // eslint-disable-next-line
 import { useMediaQuery } from 'react-responsive';
 
+import { useEffect, useState } from 'react';
 import Hamburger from './Hamburger';
 
 import logoSm from '../../../assets/logos/logo-sm.png';
 import logoXs from '../../../assets/logos/logo-xs.png';
+import logoSmLight from '../../../assets/icon/light/logo-sm-light.png';
+import logoXsLight from '../../../assets/icon/light/logo-xs-light.png';
+
 import useAuthContext from '../../../hooks/useAuthContext';
+import useStateContexts from '../../../hooks/useStateContexts';
 
 const Container = styled.div`
   &.left-header {
@@ -38,7 +42,18 @@ export default function Left() {
     query: '(max-width: 475px)',
   });
 
+  const [logoSrc, setLogoSrc] = useState('');
+
   const { user } = useAuthContext();
+  const { lightTheme } = useStateContexts();
+
+  useEffect(() => {
+    if (lightTheme) {
+      setLogoSrc(isMobile ? logoXsLight : logoSmLight);
+    } else {
+      setLogoSrc(isMobile ? logoXs : logoSm);
+    }
+  }, [lightTheme, isMobile]);
 
   return (
     <Container className="left-header">
@@ -51,7 +66,7 @@ export default function Left() {
 
       <Link to="./">
         <h1>
-          <img src={isMobile ? logoXs : logoSm} alt="당장복습헤 로고" className="logo-sm" />
+          <img src={logoSrc} alt="당장복습헤 로고" className="logo-sm" />
         </h1>
       </Link>
     </Container>

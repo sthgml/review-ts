@@ -136,13 +136,12 @@ const GlobalStyle = createGlobalStyle<GlobalStyleProps>`
     width: 100%;
     padding: 14px;
     border-radius: 4px 4px 0px 0px;
-    border-bottom: 1px solid ${({ theme }) => theme.colors.secondary};
-    background: ${({ theme }) => theme.colors.secondary};
-    color: white;
+    background: ${({ theme }) => theme.colors.background1};
+    color: ${({ theme }) => theme.colors.text};
   }
 
   [class^="user-"]::placeholder {
-    color: ${({ theme }) => theme.colors.icon};
+    color: ${({ theme }) => theme.colors.secondary}88;
     line-height: 20px;
   }
 
@@ -160,15 +159,14 @@ const GlobalStyle = createGlobalStyle<GlobalStyleProps>`
   }
 
   [class^="btn-"]:hover {
-    background: linear-gradient(#bceedf, ${({ theme }) => theme.colors.primary});
     box-sizing: border-box;
-    box-shadow: inset -1px -1px #60bba0;
+    box-shadow: inset 0 18px 18px #ffffff66;
   }
 
   [class^="btn-"]:active {
-    background: linear-gradient(${({ theme }) => theme.colors.primary}, #60bba0);
     box-sizing: border-box;
-    box-shadow: inset 1px 1px #60bba0;
+    background-color: ${({ theme }) => theme.colors.primary}99;
+    box-shadow: inset 0 -18px 18px #00000022;
   }
 
   .warning-text {
@@ -185,7 +183,7 @@ const GlobalStyle = createGlobalStyle<GlobalStyleProps>`
   .mark {
     display: inline-block;
     width: fit-content;
-    box-shadow: inset 0 -0.6em 0 #96F2D750;
+    box-shadow: inset 0 -0.6em 0 ${({ theme }) => theme.colors.primary}55;
     border-bottom: 1px solid ${({ theme }) => theme.colors.primary};
     line-height: 120%;
     font-weight: bold;

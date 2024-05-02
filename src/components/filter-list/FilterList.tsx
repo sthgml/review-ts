@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, useEffect } from 'react';
 import styled from 'styled-components';
 
-import { DocumentData } from 'firebase/firestore';
+import { type DocumentData } from 'firebase/firestore';
 import iconHeart from '../../assets/icon/heart.svg';
 
 import { type FilterData, filterData } from './filterData';
@@ -130,6 +130,7 @@ export default function FilterList({
       return diff < selectedMilliEnd && diff > selectedMilliStart;
     });
 
+    console.log(filteredDocuments);
     setDiaryData(filteredDocuments);
   }, [selected]);
 

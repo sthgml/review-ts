@@ -25,8 +25,8 @@ const ToggleDiv = styled.div`
     width: 48px;
     top: -4px;
     left: -56px;
-    box-shadow:  inset 0 0 4px ${({ theme }) => theme.colors.background4};
-    background-color: ${({ theme }) => theme.colors.background3};
+    box-shadow: inset 0 0 4px ${({ theme }) => theme.colors.background4}88;
+    background-color: ${({ theme }) => theme.colors.background4};
     transition: 0.3s;
 
     &::after {
@@ -43,7 +43,7 @@ const ToggleDiv = styled.div`
     }
 
     &:hover {
-      background-color: ${({ theme }) => theme.colors.background4};
+      background-color: ${({ theme }) => theme.colors.primary}88;
 
       &::after {
         transform: translateX(6px);
@@ -71,9 +71,10 @@ const ToggleDiv = styled.div`
 type ToggleProps = {
   onChange: ChangeEventHandler;
   labelText: string;
+  id: string;
 }
 
-export default function Toggle({ onChange, labelText }: ToggleProps) {
+export default function Toggle({ onChange, labelText, id }: ToggleProps) {
   const checkboxInput = useRef<HTMLInputElement>(null);
   const handleClickToggleBall = () => {
     checkboxInput.current?.click();
@@ -81,8 +82,8 @@ export default function Toggle({ onChange, labelText }: ToggleProps) {
 
   return (
     <ToggleDiv>
-      <label htmlFor="btn-test">{labelText}</label>
-      <input ref={checkboxInput} type="checkbox" id="btn-test" onChange={onChange} />
+      <label htmlFor={id}>{labelText}</label>
+      <input ref={checkboxInput} type="checkbox" id={id} onChange={onChange} />
       <button type="button" id="toggle-ball" onClick={handleClickToggleBall}>
         <span className="a11y-hidden">toggle-ball</span>
       </button>

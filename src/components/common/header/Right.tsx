@@ -1,14 +1,18 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
-import { useState } from 'react';
 import useLogout from '../../../hooks/useLogout';
 
 import iconLogout from '../../../assets/icon/icon-logout.svg';
 import iconLogin from '../../../assets/icon/icon-login.svg';
 import iconJoin from '../../../assets/icon/icon-join.svg';
+import iconLogoutLight from '../../../assets/icon/light/icon-logout-light.svg';
+import iconLoginLight from '../../../assets/icon/light/icon-login-light.svg';
+import iconJoinLight from '../../../assets/icon/light/icon-join-light.svg';
+
 import useAuthContext from '../../../hooks/useAuthContext';
 import Toggle from '../toggle/Toggle';
+import useStateContexts from '../../../hooks/useStateContexts';
 
 const Container = styled.div`
   display: flex;
@@ -39,13 +43,16 @@ export default function Right() {
 
   const { user } = useAuthContext();
 
-  const [lightTheme, setLightTheme] = useState(false);
+  const { lightTheme, setLightTheme } = useStateContexts();
+
+  const { pathname } = useLocation();
 
   return (
     <Container className="right-header">
       <Toggle
         onChange={() => { setLightTheme(!lightTheme); }}
-        labelText="theme"
+        labelText={lightTheme ? 'light' : 'dark'}
+        id="light-theme"
       />
       {user
         ? (
@@ -59,20 +66,29 @@ export default function Right() {
             <span>|</span>
 
             <Link to="/login" className="link-logout" onClick={logout}>
-              <img src={iconLogout} alt="icon-logout" className="icon-logout" />
+              <img src={lightTheme ? iconLogoutLight : iconLogout} alt="icon-logout" className="icon-logout" />
               <p className="text-logout">로그아웃</p>
             </Link>
           </>
-        ) : (
+        )
+        : (
           <>
-            <Link to="/login" className="link-login">
-              <img src={iconLogin} alt="icon-login" className="icon-login" />
-              <p className="text-login">로그인</p>
-            </Link>
-            <Link to="/join" className="link-join">
-              <img src={iconJoin} alt="icon-join" className="icon-join" />
-              <p className="text-join">회원가입</p>
-            </Link>
+            {
+              !pathname.includes('login')
+              && (
+                <Link to="/login" className="link-login">
+                  <img src={lightTheme ? iconLoginLight : iconLogin} alt="icon-login" className="icon-login" />
+                  <p className="text-login">로그인</p>
+                </Link>
+              )
+            }
+            {!pathname.includes('join')
+              && (
+                <Link to="/join" className="link-join">
+                  <img src={lightTheme ? iconJoinLight : iconJoin} alt="icon-join" className="icon-join" />
+                  <p className="text-join">회원가입</p>
+                </Link>
+              )}
           </>
         )}
     </Container>

@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { useEffect, useState } from 'react';
 
 import { type DocumentData } from 'firebase/firestore';
 import { type FilterData } from '../filter-list/filterData';
@@ -7,41 +6,12 @@ import { type FilterData } from '../filter-list/filterData';
 import DiaryItem from './DiaryItem';
 import CategoryTitle from './CategoryTitle';
 
-import quoteStart from '../../assets/icon/quote-start.png';
-import quoteEnd from '../../assets/icon/quote-end.png';
-
-import useCollection from '../../hooks/useCollection';
-import useAuthContext from '../../hooks/useAuthContext';
-
 const Container = styled.section`
   max-width: 100%;
   width: fit-content;
   padding: 32px 48px;
   background: ${({ theme }) => theme.colors.background2};
   border-radius: 16px;
-    
-  h2.title::before {
-    content: '';
-    background: url(${quoteStart}) center/contain no-repeat;
-    width: 60px;
-    height: 60px;
-  }
-
-  h2.title::after {
-    content: '';
-    background: url(${quoteEnd}) center/contain no-repeat;
-    width: 60px;
-    height: 60px;
-  }
-
-  h2 {
-    margin: 0;
-
-    span {
-    flex-shrink: 0;
-    margin-right: 12px;
-  }
-  }
 
   .note-list {
     display: flex;
@@ -104,37 +74,17 @@ const Container = styled.section`
     h2 {
       margin-bottom: 16px;
     }
-
-    h3.title {
-      flex-direction: column;
-    }
   }
 `;
 
 type DiaryListProps = {
   selected: FilterData;
+  diaryData: DocumentData[]
 }
 
-export default function DiaryList({ selected } : DiaryListProps) {
-  const { user } = useAuthContext();
-
-  const { documents } = useCollection('diary', ['doc.uid', '==', user?.uid ?? '']);
-  const [diaryData, setDiaryData] = useState<DocumentData[] | null>(documents);
-  const syncData = () => {
-    setDiaryData(documents);
-  };
-
-  useEffect(() => {
-    syncData();
-  }, [documents]);
-
+export default function DiaryList({ selected, diaryData } : DiaryListProps) {
   return (
     <Container className="old">
-      <h2 className="title typing">
-        <span className="mark">당장</span>
-        &nbsp;기록했던 내용들을 다시 타이핑 해보면서 복습해보세요!
-      </h2>
-
       <div className="category-24hr">
         <CategoryTitle selected={selected} />
         <ul className="note-list">

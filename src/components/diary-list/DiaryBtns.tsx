@@ -1,16 +1,15 @@
 import iconEdit from '../../assets/icon/icon-edit-bk.png';
 import iconDelete from '../../assets/icon/icon-delete.svg';
 
-export default function DiaryBtns() {
-  // const { deleteDocument, updateDocument } = useFirestore('diary');
-  const handleDelete = () => {
-    // if (window.confirm('정말로 삭제하시겠습니까?')) deleteDocument(item.id);
-  };
+type DiaryBtnsProps = {
+  fns: {
+    handleDelete: () => void;
+    handleUpdate: () => void;
+  }
+}
 
-  const handleUpdate = () => {
-    // if (window.confirm('수정하시겠습니까?')) updateDocument(item.id, { 'doc.text': textareaValue });
-  };
-
+export default function DiaryBtns({ fns }: DiaryBtnsProps) {
+  const { handleUpdate, handleDelete } = fns;
   return (
     <div className="div-btns">
       <button type="button" onClick={() => handleUpdate()} className="edit-btn">

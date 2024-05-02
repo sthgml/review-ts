@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 
 const MainJoin = styled.main`
+  &.main {
+    margin-top: 120px;
+  }
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -10,10 +14,13 @@ const MainJoin = styled.main`
   width: 400px;
 
   margin: 32px auto;
+  
   padding: 40px 24px;
 
   background: ${({ theme }) => theme.colors.background2};
   border-radius: 16px;
+  box-shadow: -23px -20px 120px 0px ${({ theme }) => theme.colors.background1}
+  , 32px 20px 180px 0px ${({ theme }) => theme.colors.background4};
 
   .logo-big {
     width: 166px;
@@ -34,26 +41,6 @@ const MainJoin = styled.main`
 
   .btn-join {
     margin-top: 24px;
-  }
-
-  .division {
-    width: 100%;
-    position: relative;
-  }
-
-  hr.division-line {
-    width: 100%;
-    background: ${({ theme }) => theme.colors.secondary};
-    height:1px;
-    border:0;
-  }
-
-  .or {
-    position: absolute;
-    top: -0.5em;
-    left: calc(50% - 1em - 8px);
-    background-color: ${({ theme }) => theme.colors.background1};
-    padding: 0 8px;
   }
 `;
 

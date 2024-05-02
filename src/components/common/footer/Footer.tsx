@@ -14,6 +14,10 @@ const Container = styled.footer`
     width: fit-content;
     color: ${({ theme }) => theme.colors.secondary};
   }
+
+  @media (max-width: 748px) {
+    display: none;
+  }
 `;
 
 export default function Footer() {

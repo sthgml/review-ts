@@ -1,6 +1,6 @@
 // bg는 밝기 순 1 - 4 숫자가 커질수록 어두워짐
 
-const defaultTheme = {
+const DefaultTheme = {
   colors: {
     text: '#DDE0E4', // em
     primary: '#96F2D7',
@@ -13,4 +13,4 @@ const defaultTheme = {
   },
 };
 
-export default defaultTheme;
+export default DefaultTheme;

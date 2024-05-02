@@ -116,7 +116,7 @@ function LoginForm() {
         </div>
 
         <div className="test-toggle-div">
-          <Toggle onChange={handleCheckChange} labelText="테스트 계정으로 체험하기" />
+          <Toggle onChange={handleCheckChange} labelText="테스트 계정으로 체험하기" id="btn-tes" />
         </div>
 
         {isPending

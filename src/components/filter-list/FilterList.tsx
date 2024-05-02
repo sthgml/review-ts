@@ -13,7 +13,7 @@ import useCollection from '../../hooks/useCollection';
 const Container = styled.nav`
   padding: 48px 0;
   position: sticky;
-  top: 68px;
+  top: 88px;
 
   z-index: 20;
   height: fit-content;

@@ -7,14 +7,19 @@ export const StateContext = createContext<{
   setIsMenuOpen: Dispatch<SetStateAction<boolean>>;
   lightTheme: boolean;
   setLightTheme: Dispatch<SetStateAction<boolean>>;
+  isModalOpen: boolean;
+  setIsModalOpen: Dispatch<SetStateAction<boolean>>;
 }>({
   isMenuOpen: false,
   setIsMenuOpen: () => {},
   lightTheme: false,
   setLightTheme: () => {},
+  isModalOpen: false,
+  setIsModalOpen: () => {},
 });
 
 export function StateProvider({ children }: {children: ReactNode}) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [lightTheme, setLightTheme] = useState(false);
 
@@ -24,6 +29,8 @@ export function StateProvider({ children }: {children: ReactNode}) {
       setIsMenuOpen,
       lightTheme,
       setLightTheme,
+      isModalOpen,
+      setIsModalOpen,
     }}
     >
       {children}

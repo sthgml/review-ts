@@ -10,11 +10,9 @@ import { FilterData, filterData } from '../components/filter-list/filterData';
 import useAuthContext from '../hooks/useAuthContext';
 import { mockData } from '../components/diary-list/diaries';
 import useCollection from '../hooks/useCollection';
+import useStateContexts from '../hooks/useStateContexts';
 
 const Container = styled.main`
-  position: relative;
-  min-height: calc(100vh - 130px - 60px);
-
   div.diary-panel {
     display: flex;
     justify-content: center;
@@ -23,7 +21,6 @@ const Container = styled.main`
     height: 100%;
 
     margin: 0 auto;
-    padding: 32px;
   }
 
   @media (max-width:748px) {
@@ -31,6 +28,7 @@ const Container = styled.main`
       display: flex;
       flex-direction: column;
       align-items: center;
+
       width: 100%;
       margin-top: 12px;
       margin-bottom: 12px;
@@ -50,13 +48,9 @@ export default function HomePage() {
     }
   }, [user?.email]);
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { isModalOpen, setIsModalOpen } = useStateContexts();
   const [diaryData, setDiaryData] = useState<DocumentData[] | null>(documents ?? mockData);
   const [selected, setSelected] = useState<FilterData>(filterData[0]);
-
-  const handleNewBtn = () => {
-    setIsModalOpen(true);
-  };
 
   useEffect(() => {
     setDiaryData(documents);
@@ -72,7 +66,7 @@ export default function HomePage() {
         />
         {diaryData && <DiaryList selected={selected} diaryData={diaryData} />}
       </div>
-      <BtnNew handleNewBtn={handleNewBtn} />
+      <BtnNew />
       {isModalOpen && <TodayModal setIsModalOpen={setIsModalOpen} />}
     </Container>
   );

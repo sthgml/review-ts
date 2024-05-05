@@ -67,74 +67,76 @@ function LoginForm() {
 
   return (
     <MainLogin className="main">
-      <Link to="./">
-        <img src={lightTheme ? logoBigLight : logoBig} alt="당장복습헤 로고" className="logo-big" />
-      </Link>
-      <h1 className="mark">로그인</h1>
-      <form
-        className="form"
-        action="#"
-        method="post"
-        name="user-info-join"
-        onSubmit={handleSubmit}
-      >
-        <div className="input-user-email">
-          <label htmlFor="user-email">
-            이메일
-          </label>
-          <input
-            ref={inputEmail}
-            type="email"
-            id="user-email"
-            name="user-email"
-            className="user-email"
-            placeholder="example@exam.ple"
-            onKeyUp={handleData}
-            required
-          />
-          {error && (
-            <p className="warning-text">
-              아이디를 확인해주세요!
-            </p>
-          )}
-        </div>
+      <section>
+        <Link to="./">
+          <img src={lightTheme ? logoBigLight : logoBig} alt="당장복습헤 로고" className="logo-big" />
+        </Link>
+        <h1 className="mark">로그인</h1>
+        <form
+          className="form"
+          action="#"
+          method="post"
+          name="user-info-join"
+          onSubmit={handleSubmit}
+        >
+          <div className="input-user-email">
+            <label htmlFor="user-email">
+              이메일
+            </label>
+            <input
+              ref={inputEmail}
+              type="email"
+              id="user-email"
+              name="user-email"
+              className="user-email"
+              placeholder="example@exam.ple"
+              onKeyUp={handleData}
+              required
+            />
+            {error && (
+              <p className="warning-text">
+                아이디를 확인해주세요!
+              </p>
+            )}
+          </div>
 
-        <div className="input-user-pw">
-          <label htmlFor="user-pw">
-            비밀번호
-          </label>
-          <input
-            ref={inputPassword}
-            type="password"
-            id="user-pw"
-            name="user-pw"
-            placeholder="비밀번호"
-            className="user-pw"
-            onChange={handleData}
-            required
-          />
-          {error && (
-            <p className="warning-text">
-              비밀번호를 확인해주세요!
-            </p>
-          )}
-        </div>
+          <div className="input-user-pw">
+            <label htmlFor="user-pw">
+              비밀번호
+            </label>
+            <input
+              ref={inputPassword}
+              type="password"
+              id="user-pw"
+              name="user-pw"
+              placeholder="비밀번호"
+              className="user-pw"
+              onChange={handleData}
+              required
+            />
+            {error && (
+              <p className="warning-text">
+                비밀번호를 확인해주세요!
+              </p>
+            )}
+          </div>
 
-        <div className="test-toggle-div">
-          <Toggle onChange={handleCheckChange} labelText="테스트 계정으로 체험하기" id="btn-tes" />
-        </div>
+          <div className="test-toggle-div">
+            <Toggle onChange={handleCheckChange} labelText="테스트 계정으로 체험하기" id="btn-tes" />
+          </div>
 
-        {isPending
-          ? <strong>로그인이 진행중입니다.</strong>
-          : (
-            <button
-              type="submit"
-              className="btn-join"
-            >
-              로그인
-            </button>
-          )}
-      </form>
+          {isPending
+            ? <strong>로그인이 진행중입니다.</strong>
+            : (
+              <button
+                type="submit"
+                className="btn-join"
+              >
+                로그인
+              </button>
+            )}
+        </form>
+      </section>
     </MainLogin>
   );
 }

@@ -25,12 +25,16 @@ const Container = styled.div`
     background: ${({ theme }) => theme.colors.background2};
     border-radius: 16px;  
 
-    width: 50%;
-    height: 50%;
+    width: 500px;
+    height: 600px;
 
     max-width: 100vw;
     max-height: 100vh;
     overflow-y: scroll;
+
+    textarea {
+      height: 300px;
+    }
 
     ::-webkit-scrollbar {
       display: none;
@@ -39,15 +43,10 @@ const Container = styled.div`
     @media (max-width: 748px) {
       padding: 24px 16px;
       width: 95%;
-      height:70%;
 
       .form {
         padding: 0px;
         gap: 16px;
-        
-        textarea {
-          height: 200px;
-        }
       }
     }
   }
@@ -64,24 +63,24 @@ const Container = styled.div`
     height: calc(100% - 100px);
   }
 
-  h2 {
+  h2.title {
     width: max-content;
     margin: 0 auto;
     margin-bottom: 32px;
-  }
 
-  h2.title::before {
-    content: '';
-    background: url(${(props) => (props.theme.colors.background1 === '#ffffff' ? quoteStartLight : quoteStart)}) center/contain no-repeat;
-    width: 60px;
-    height: 60px;
-  }
+    &::before {
+      content: '';
+      background: url(${(props) => (props.theme.colors.background1 === '#ffffff' ? quoteStartLight : quoteStart)}) center/contain no-repeat;
+      width: 60px;
+      height: 60px;
+    }
 
-  h2.title::after {
-    content: '';
-    background: url(${(props) => (props.theme.colors.background1 === '#ffffff' ? quoteEndLight : quoteEnd)}) center/contain no-repeat;
-    width: 60px;
-    height: 60px;
+    &::after {
+      content: '';
+      background: url(${(props) => (props.theme.colors.background1 === '#ffffff' ? quoteEndLight : quoteEnd)}) center/contain no-repeat;
+      width: 60px;
+      height: 60px;
+    }
   }
 `;
 

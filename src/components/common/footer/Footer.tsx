@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 const Container = styled.footer`
   position: relative;
-  bottom: -40px;
   height: 128px;
   width: 100%;
   background-color: ${({ theme }) => theme.colors.background4};

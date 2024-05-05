@@ -44,7 +44,6 @@ export default function SideMenu() {
   const navigate = useNavigate();
   const handleClose = () => {
     setIsMenuOpen(false);
-    navigate('/mypage');
   };
 
   return (
@@ -52,7 +51,15 @@ export default function SideMenu() {
       {isMenuOpen && <Dim onClick={handleClose} />}
       <Container className={`paper-list ${isMenuOpen ? 'opened' : ''}`}>
         <li>
-          <button className="btn-settings" type="button" onClick={handleClose}>마이페이지</button>
+          <button
+            className="btn-settings"
+            type="button"
+            onClick={() => {
+              navigate('/mypage');
+            }}
+          >
+            마이페이지
+          </button>
         </li>
       </Container>
     </>

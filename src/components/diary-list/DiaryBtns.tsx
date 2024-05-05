@@ -14,6 +14,7 @@ type DiaryBtnsProps = {
 export default function DiaryBtns({ fns }: DiaryBtnsProps) {
   const { handleUpdate, handleDelete } = fns;
   const { lightTheme } = useStateContexts();
+
   return (
     <div className="div-btns">
       <button type="button" onClick={() => handleUpdate()} className="edit-btn">

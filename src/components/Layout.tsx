@@ -2,7 +2,7 @@ import { Outlet } from 'react-router-dom';
 
 import styled, { ThemeProvider } from 'styled-components';
 
-import { useEffect, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { Reset } from 'styled-reset';
 import Header from './common/header/Header';
 import Footer from './common/footer/Footer';
@@ -14,11 +14,26 @@ import GlobalStyle from '../styles/GlobalStyle';
 import SideMenu from './side-menu/SideMenu';
 
 const Container = styled.div`
-  max-height: 100vh;
   position: relative;
+
+  main {
+    min-height: calc(100vh - 128px);
+    padding-top: 120px;
+    padding-bottom: 80px;
+    box-sizing: border-box; 
+
+    @media (max-width: 478px) {
+      padding-top: 66px;
+      width: 100vw;
+    }
+  }
 `;
 
-export default function Layout() {
+type LayoutProps = {
+  children?: ReactNode | null;
+}
+
+export default function Layout({ children = null }: LayoutProps) {
   const { lightTheme } = useStateContexts();
   const [theme, setTheme] = useState<Theme>(DefaultTheme);
 
@@ -37,7 +52,7 @@ export default function Layout() {
       <Container>
         <Header />
         <SideMenu />
-        <Outlet />
+        {children ?? <Outlet />}
         <Footer />
       </Container>
     </ThemeProvider>

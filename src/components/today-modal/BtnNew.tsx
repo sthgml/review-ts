@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import useStateContexts from '../../hooks/useStateContexts';
 
 const Container = styled.button`
   position: fixed;
@@ -69,11 +70,10 @@ const Container = styled.button`
   }
 `;
 
-export default function BtnNew({ handleNewBtn } : {
-  handleNewBtn: () => void;
-}) {
+export default function BtnNew() {
+  const { setIsModalOpen } = useStateContexts();
   return (
-    <Container type="button" className="btn-new" onClick={handleNewBtn}>
+    <Container type="button" className="btn-new" onClick={() => { setIsModalOpen((prev) => !prev); }}>
       <div className="x-1" />
       <div className="x-2" />
       <p className="guide">당장 복습하기!</p>

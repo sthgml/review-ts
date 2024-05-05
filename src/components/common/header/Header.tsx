@@ -7,7 +7,7 @@ import Right from './Right';
 const Container = styled.header`
   position: fixed;
   width: 100vw;
-  top: 0px;
+  top: 0;
   z-index: 30;
 
   height: 60px;
@@ -20,6 +20,7 @@ const Container = styled.header`
 
   &::before {
     content: '';
+    position: fixed;
     width: 100vw;
     height: 60px;
 

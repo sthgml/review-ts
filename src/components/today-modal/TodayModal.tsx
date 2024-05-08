@@ -1,4 +1,3 @@
-import { Dispatch, SetStateAction } from 'react';
 import styled from 'styled-components';
 
 import { Dim } from '../side-menu/SideMenu';
@@ -10,6 +9,7 @@ import quoteStartLight from '../../assets/icon/light/quote-start-light.svg';
 import quoteEndLight from '../../assets/icon/light/quote-end-light.svg';
 
 import useAuthContext from '../../hooks/useAuthContext';
+import useStateContexts from '../../hooks/useStateContexts';
 
 const Container = styled.div`
   &.today { 
@@ -84,13 +84,9 @@ const Container = styled.div`
   }
 `;
 
-export default function TodayModal({ setIsModalOpen }: {
-  setIsModalOpen: Dispatch<SetStateAction<boolean>>;
-}) {
+export default function TodayModal() {
   const { user } = useAuthContext();
-  const handleClose = () => {
-    setIsModalOpen(false);
-  };
+  const { setIsModalOpen } = useStateContexts();
 
   return (
     <>
@@ -101,9 +97,9 @@ export default function TodayModal({ setIsModalOpen }: {
           &nbsp;기록해서 복습하기
         </h2>
 
-        <DiaryForm uid={user?.uid} handleClose={handleClose} />
+        <DiaryForm uid={user?.uid} />
       </Container>
-      <Dim className="dim" onClick={handleClose} />
+      <Dim className="dim" onClick={() => setIsModalOpen(false)} />
     </>
   );
 }

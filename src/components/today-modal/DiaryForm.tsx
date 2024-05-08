@@ -1,16 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import useFirestore from '../../hooks/useFireStore';
+import useStateContexts from '../../hooks/useStateContexts';
 
 type DiaryFormProps = {
   uid: string | undefined;
-  handleClose: () => void;
 }
 
-export default function DiaryForm({ uid, handleClose }: DiaryFormProps) {
+export default function DiaryForm({ uid }: DiaryFormProps) {
+  const inputEl = useRef<HTMLInputElement>(null);
+  const textareaEl = useRef<HTMLTextAreaElement>(null);
+
   const [title, setTitle] = useState('');
   const [text, setText] = useState('');
-  const { addDocument, response } = useFirestore('diary');
+
+  const { addDocument, updateDocument, response } = useFirestore('diary');
   const [error] = useState(null);
+
+  const { selected, setSelected, setIsModalOpen } = useStateContexts();
 
   const handleData = (event) => {
     if (event.target.id === 'user-title') {
@@ -20,18 +26,32 @@ export default function DiaryForm({ uid, handleClose }: DiaryFormProps) {
     }
   };
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (selected.id) {
+      updateDocument(selected.id, { 'doc.text': text, 'doc.title': title });
+    } else {
+      addDocument({ uid, title, text });
+    }
+  };
+
   useEffect(() => {
     if (response.success) { // firestore에 잘 적용됐다!
       setText('');
       setTitle('');
-      handleClose();
+      setSelected({});
+      setIsModalOpen(false);
     }
   }, [response.success]);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    addDocument({ uid, title, text });
-  };
+  useEffect(() => {
+    if (selected.id && textareaEl?.current && inputEl?.current) {
+      setText(selected.doc.text);
+      setTitle(selected.doc.title);
+      textareaEl.current.value = selected.doc.text;
+      inputEl.current.value = selected.doc.title;
+    }
+  }, [selected]);
 
   return (
     <form
@@ -44,6 +64,7 @@ export default function DiaryForm({ uid, handleClose }: DiaryFormProps) {
       <div className="input-user-flex">
         <div className="input-user-flex">
           <input
+            ref={inputEl}
             type="text"
             id="user-title"
             name="user-title"
@@ -55,6 +76,7 @@ export default function DiaryForm({ uid, handleClose }: DiaryFormProps) {
         </div>
         <div className="input-user-flex">
           <textarea
+            ref={textareaEl}
             id="user-content"
             name="user-content"
             className="user-content"

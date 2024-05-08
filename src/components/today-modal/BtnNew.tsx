@@ -71,9 +71,14 @@ const Container = styled.button`
 `;
 
 export default function BtnNew() {
-  const { setIsModalOpen } = useStateContexts();
+  const { setIsModalOpen, setSelected } = useStateContexts();
+  const handleCreate = () => {
+    setIsModalOpen((prev) => !prev);
+    setSelected({});
+  };
+
   return (
-    <Container type="button" className="btn-new" onClick={() => { setIsModalOpen((prev) => !prev); }}>
+    <Container type="button" className="btn-new" onClick={handleCreate}>
       <div className="x-1" />
       <div className="x-2" />
       <p className="guide">당장 복습하기!</p>

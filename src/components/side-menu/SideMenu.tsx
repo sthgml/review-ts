@@ -56,6 +56,7 @@ export default function SideMenu() {
             type="button"
             onClick={() => {
               navigate('/mypage');
+              handleClose();
             }}
           >
             마이페이지

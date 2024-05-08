@@ -8,7 +8,6 @@ import TodayModal from '../components/today-modal/TodayModal';
 import FilterList from '../components/filter-list/FilterList';
 import { FilterData, filterData } from '../components/filter-list/filterData';
 import useAuthContext from '../hooks/useAuthContext';
-import { mockData } from '../components/diary-list/diaries';
 import useCollection from '../hooks/useCollection';
 import useStateContexts from '../hooks/useStateContexts';
 
@@ -35,6 +34,16 @@ const Container = styled.main`
       padding: 0px;
     }
   } 
+
+  button#testtest {
+    position: fixed;
+    top: 120px;
+    left: 0;
+
+    width: 100px;
+    height: 100px;
+    background-color: red;
+  }
 `;
 
 export default function HomePage() {
@@ -48,13 +57,15 @@ export default function HomePage() {
     }
   }, [user?.email]);
 
-  const { isModalOpen, setIsModalOpen } = useStateContexts();
-  const [diaryData, setDiaryData] = useState<DocumentData[] | null>(documents ?? mockData);
+  const { isModalOpen } = useStateContexts();
+  const [diaryData, setDiaryData] = useState<DocumentData[] | null>(documents);
   const [selected, setSelected] = useState<FilterData>(filterData[0]);
 
   useEffect(() => {
-    setDiaryData(documents);
-  }, [documents]);
+    if (documents) {
+      setDiaryData(documents);
+    }
+  }, [isModalOpen, documents]);
 
   return (
     <Container>
@@ -64,10 +75,10 @@ export default function HomePage() {
           setSelected={setSelected}
           selected={selected}
         />
-        {diaryData && <DiaryList selected={selected} diaryData={diaryData} />}
+        <DiaryList selected={selected} diaryData={diaryData ?? []} />
       </div>
       <BtnNew />
-      {isModalOpen && <TodayModal setIsModalOpen={setIsModalOpen} />}
+      {isModalOpen && <TodayModal />}
     </Container>
   );
 }

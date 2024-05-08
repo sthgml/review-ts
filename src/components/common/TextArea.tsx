@@ -32,6 +32,11 @@ export default function TextArea({
     }, 400);
   };
 
+  useEffect(() => {
+    if (!textarea.current) return;
+    textarea.current.value = value;
+  }, [placeholder, value]);
+
   return (
     <textarea
       ref={textarea}

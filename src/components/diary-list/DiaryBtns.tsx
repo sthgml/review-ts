@@ -12,16 +12,16 @@ type DiaryBtnsProps = {
 }
 
 export default function DiaryBtns({ fns }: DiaryBtnsProps) {
-  const { handleUpdate, handleDelete } = fns;
+  const { handleDelete, handleUpdate } = fns;
   const { lightTheme } = useStateContexts();
 
   return (
     <div className="div-btns">
-      <button type="button" onClick={() => handleUpdate()} className="edit-btn">
+      <button type="button" onClick={handleUpdate} className="edit-btn">
         <img src={lightTheme ? iconEditLight : iconEdit} alt="수정" />
       </button>
       <span className="divider-btns" />
-      <button type="button" onClick={() => handleDelete()} className="delete-btn">
+      <button type="button" onClick={handleDelete} className="delete-btn">
         <img src={lightTheme ? iconDeleteLight : iconDelete} alt="삭제" />
       </button>
     </div>

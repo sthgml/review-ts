@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 import { type DocumentData } from 'firebase/firestore';
+import { useEffect } from 'react';
 import { type FilterData } from '../filter-list/filterData';
 
 import DiaryItem from './DiaryItem';
@@ -92,22 +93,24 @@ export default function DiaryList({ selected, diaryData } : DiaryListProps) {
       <div className="category-24hr">
         <CategoryTitle selected={selected} />
         <ul className="note-list">
-          {diaryData.length ? diaryData.map((d) => (
-            <li key={`${d.id}`} className="note-item">
-              <DiaryItem data={d} />
-            </li>
-          )) : (
-            <>
-              <ErrorDiv text="아직 작성된 내용이 없어요" />
-              <button
-                type="button"
-                className="btn-go-back"
-                onClick={() => { setIsModalOpen(true); }}
-              >
-                당장 복습하기
-              </button>
-            </>
-          )}
+          {diaryData.length
+            ? diaryData.map((d) => (
+              <li key={`${d.id}`} className="note-item">
+                <DiaryItem data={d} />
+              </li>
+            ))
+            : (
+              <>
+                <ErrorDiv text="아직 작성된 내용이 없어요" />
+                <button
+                  type="button"
+                  className="btn-go-back"
+                  onClick={() => { setIsModalOpen(true); }}
+                >
+                  당장 복습하기
+                </button>
+              </>
+            )}
         </ul>
       </div>
     </Container>

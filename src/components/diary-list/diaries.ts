@@ -1,4 +1,4 @@
-import { DocumentData, DocumentReference } from 'firebase/firestore';
+import { DocumentData } from 'firebase/firestore';
 
 export type Timestamp = {
   seconds: number;

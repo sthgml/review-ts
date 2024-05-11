@@ -2,7 +2,6 @@ import { Reducer, useReducer } from 'react';
 import {
   DocumentData,
   DocumentReference,
-  WithFieldValue,
   addDoc, collection, deleteDoc, doc, updateDoc,
 } from 'firebase/firestore';
 import { appFireStore, timestamp } from '../firebase/config';
@@ -103,17 +102,18 @@ function useFirestore(transaction: string) {
   // collection의 참조값
   const colRef = collection(appFireStore, transaction); // appFirestore를 불러와야해
 
-  const addDocument = async (doc: DocumentData) => {
+  const addDocument = async (document: DocumentData) => {
     try {
       const createdTime = timestamp.fromDate(new Date());
-      const docRef = await addDoc(colRef, { doc, createdTime });
+      const reviewCnt = 1;
+      const docRef = await addDoc(colRef, { document, createdTime, reviewCnt });
       dispatch({ type: 'addDoc', payload: docRef });
     } catch (error) {
       dispatch({ type: 'error', payload: error.message });
     }
   };
 
-  const deleteDocument = async (id) => {
+  const deleteDocument = async (id: string) => {
     try {
       const docRef = doc(colRef, id);
       await deleteDoc(docRef);
@@ -123,10 +123,19 @@ function useFirestore(transaction: string) {
     }
   };
 
-  const updateDocument = async (id, data) => {
+  const updateDocument = async (
+    id: string,
+    data: {'doc.text': string; 'doc.title': string},
+    newReviewCnt: number,
+  ) => {
     try {
+      const lastUpdatedTime = timestamp.fromDate(new Date());
       const docRef = doc(colRef, id);
-      await updateDoc(docRef, data);
+      await updateDoc(docRef, {
+        ...data,
+        lastUpdatedTime,
+        reviewCnt: newReviewCnt,
+      });
       dispatch({ type: 'updateDoc' });
     } catch (error) {
       dispatch({ type: 'error', payload: error.message });

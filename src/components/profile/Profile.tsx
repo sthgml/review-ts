@@ -1,8 +1,9 @@
 import styled from 'styled-components';
-import { useRef } from 'react';
+import { FormEventHandler, useRef } from 'react';
 import useAuthContext from '../../hooks/useAuthContext';
 import ProfileImage from './ProfileImage';
 import useUpdateProfile from '../../hooks/useUpdateProfile';
+import useCollection from '../../hooks/useCollection';
 
 const Container = styled.main`
   margin: 0 auto;
@@ -36,6 +37,11 @@ const Container = styled.main`
     border-bottom: 2px solid ${({ theme }) => theme.colors.background1};
     margin-bottom: 8px;
   }
+
+  #graph {
+    background-color: ${({ theme }) => theme.colors.primary};
+
+  }
 `;
 
 export default function Profile() {
@@ -44,8 +50,9 @@ export default function Profile() {
   const emailEl = useRef<HTMLInputElement>(null);
   const phoneNumberEl = useRef<HTMLInputElement>(null);
   const { update, error, isPending } = useUpdateProfile();
+  const { documents } = useCollection('diary', ['doc.uid', '==', user?.uid ?? '']);
 
-  const handleSubmit = (e: SubmitEvent) => {
+  const handleSubmit: FormEventHandler = (e) => {
     e.preventDefault();
     if (!window.confirm('수정하시겠습니까?')) return;
     update(displayNameEl.current?.value ?? '', phoneNumberEl.current?.value ?? '');
@@ -80,7 +87,6 @@ export default function Profile() {
             className="user-email"
             readOnly
           />
-          <p />
         </div>
 
         <div>
@@ -88,7 +94,6 @@ export default function Profile() {
             전화번호
           </h2>
           <p>
-
             <input
               ref={phoneNumberEl}
               type="number"
@@ -96,9 +101,26 @@ export default function Profile() {
               defaultValue={user?.phoneNumber ?? ''}
               className="user-phone-number"
             />
-
           </p>
         </div>
+
+        {documents && (
+          <div>
+            <h2>
+              내가 복습한 기록
+            </h2>
+            <div
+              id="graph"
+              style={{
+                width: '28px',
+                height: `${2 * documents.length}px`,
+              }}
+            />
+            <p>
+              {documents.length}
+            </p>
+          </div>
+        )}
         {isPending
           ? (
             <p className="assistive-text">

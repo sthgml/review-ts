@@ -29,7 +29,11 @@ export default function DiaryForm({ uid }: DiaryFormProps) {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (selected.id) {
-      updateDocument(selected.id, { 'doc.text': text, 'doc.title': title });
+      updateDocument(
+        selected.id,
+        { 'doc.text': text, 'doc.title': title },
+        selected.reviewCnt,
+      );
     } else {
       addDocument({ uid, title, text });
     }

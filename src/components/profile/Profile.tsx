@@ -4,19 +4,21 @@ import useAuthContext from '../../hooks/useAuthContext';
 import ProfileImage from './ProfileImage';
 import useUpdateProfile from '../../hooks/useUpdateProfile';
 import useCollection from '../../hooks/useCollection';
+import GraphList from './GraphList';
 
 const Container = styled.main`
-  margin: 0 auto;
-  margin-top: 80px;
-  
-  max-width: 100%;
-  width: 400px;
-  padding: 40px 24px;
+  &.main {
+    margin: 80px auto 20px;
+    
+    max-width: 100%;
+    width: 400px;
+    padding: 40px 24px;
 
-  background: ${({ theme }) => theme.colors.background2};
-  border-radius: 16px;
-  box-shadow: -23px -20px 120px 0px ${({ theme }) => theme.colors.background1}
-  , 32px 20px 180px 0px ${({ theme }) => theme.colors.background4};
+    background: ${({ theme }) => theme.colors.background2};
+    border-radius: 16px;
+    box-shadow: -23px -20px 120px 0px ${({ theme }) => theme.colors.background1}
+    , 32px 20px 180px 0px ${({ theme }) => theme.colors.background4};
+  }
 
   form {
     width: 100%;
@@ -37,11 +39,6 @@ const Container = styled.main`
     border-bottom: 2px solid ${({ theme }) => theme.colors.background1};
     margin-bottom: 8px;
   }
-
-  #graph {
-    background-color: ${({ theme }) => theme.colors.primary};
-
-  }
 `;
 
 export default function Profile() {
@@ -59,7 +56,7 @@ export default function Profile() {
   };
 
   return (
-    <Container>
+    <Container className="main">
       <form onSubmit={handleSubmit}>
         <ProfileImage src={user?.photoURL ?? ''} />
         <div>
@@ -74,6 +71,7 @@ export default function Profile() {
             className="user-nickname"
           />
         </div>
+        <GraphList data={documents} />
 
         <div>
           <h2>
@@ -103,24 +101,6 @@ export default function Profile() {
             />
           </p>
         </div>
-
-        {documents && (
-          <div>
-            <h2>
-              내가 복습한 기록
-            </h2>
-            <div
-              id="graph"
-              style={{
-                width: '28px',
-                height: `${2 * documents.length}px`,
-              }}
-            />
-            <p>
-              {documents.length}
-            </p>
-          </div>
-        )}
         {isPending
           ? (
             <p className="assistive-text">
@@ -128,9 +108,12 @@ export default function Profile() {
             </p>
           )
           : (
-            <button type="submit" className="btn-submit-update">
-              수정하기
-            </button>
+            <>
+              <button type="submit" className="btn-submit-update">
+                수정하기
+              </button>
+              {error && <p className="assistive-text">{error}</p>}
+            </>
           )}
       </form>
     </Container>

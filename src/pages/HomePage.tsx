@@ -75,7 +75,10 @@ export default function HomePage() {
           setSelected={setSelected}
           selected={selected}
         />
-        <DiaryList selected={selected} diaryData={diaryData ?? []} />
+        <DiaryList
+          selected={selected}
+          diaryData={diaryData ?? []}
+        />
       </div>
       <BtnNew />
       {isModalOpen && <TodayModal />}

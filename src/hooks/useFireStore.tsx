@@ -2,7 +2,7 @@ import { Reducer, useReducer } from 'react';
 import {
   DocumentData,
   DocumentReference,
-  addDoc, collection, deleteDoc, doc, updateDoc,
+  addDoc, collection, deleteDoc, doc as useDoc, updateDoc,
 } from 'firebase/firestore';
 import { appFireStore, timestamp } from '../firebase/config';
 
@@ -104,9 +104,10 @@ function useFirestore(transaction: string) {
 
   const addDocument = async (document: DocumentData) => {
     try {
+      const doc = document;
       const createdTime = timestamp.fromDate(new Date());
       const reviewCnt = 1;
-      const docRef = await addDoc(colRef, { document, createdTime, reviewCnt });
+      const docRef = await addDoc(colRef, { doc, createdTime, reviewCnt });
       dispatch({ type: 'addDoc', payload: docRef });
     } catch (error) {
       dispatch({ type: 'error', payload: error.message });
@@ -115,7 +116,7 @@ function useFirestore(transaction: string) {
 
   const deleteDocument = async (id: string) => {
     try {
-      const docRef = doc(colRef, id);
+      const docRef = useDoc(colRef, id);
       await deleteDoc(docRef);
       dispatch({ type: 'deleteDoc' });
     } catch (error) {
@@ -130,7 +131,7 @@ function useFirestore(transaction: string) {
   ) => {
     try {
       const lastUpdatedTime = timestamp.fromDate(new Date());
-      const docRef = doc(colRef, id);
+      const docRef = useDoc(colRef, id);
       await updateDoc(docRef, {
         ...data,
         lastUpdatedTime,

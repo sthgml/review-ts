@@ -28,13 +28,23 @@ export default function DiaryForm({ uid }: DiaryFormProps) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
     if (selected.id) {
+      if (selected.doc.text === text && selected.doc.title === title) {
+        alert('내용이 변경되지 않았습니다.');
+        return;
+      }
       updateDocument(
         selected.id,
         { 'doc.text': text, 'doc.title': title },
-        selected.reviewCnt,
+        selected.reviewCnt ? selected.reviewCnt + 1 : 2,
       );
     } else {
+      if (!text.length || !title.length) {
+        alert('내용을 입력해주세요.');
+        return;
+      }
+      console.log(uid);
       addDocument({ uid, title, text });
     }
   };

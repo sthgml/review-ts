@@ -10,24 +10,20 @@ function useCollection(
   myQuery: string[],
 ) {
   const [documents, setDocuments] = useState<DocumentData[] | null>(null);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    let q;
-    if (myQuery) {
-      q = query(
-        collection(appFireStore, transaction),
-        where(...myQuery),
-      );
-    }
+    const q = myQuery ? query(
+      collection(appFireStore, transaction),
+      where(...myQuery),
+    ) : collection(appFireStore, transaction);
 
     const unsubscribe = onSnapshot( // 구독을 끊어주는 함수 반환
-      // 스냅샷찍을 컬렉션
-      // 쿼리이쓰면
-      (myQuery ? q : collection(appFireStore, transaction)),
-      // 스냅샷 함수
-      (snapshot) => { // snapshot (사진직은것처럼 지금 데이터 전부를 담아옴)
-        let result = [];
+      // 스냅샷 찍을 컬렉션
+      q,
+      // 스냅샷 함수, snapshot (사진직은것처럼 지금 데이터 전부를 담아옴)
+      (snapshot) => {
+        let result:DocumentData[] = [];
         // snapshot.docs안에 데이터가 배열상태로 저장되어있음
         snapshot.docs.forEach((doc) => {
           result.push({
@@ -36,10 +32,11 @@ function useCollection(
           });
         });
         result = result.sort((a, b) => b.createdTime.seconds - a.createdTime.seconds);
+        console.log(result);
         setDocuments(result);
       },
       // 에러함수
-      (errMsg) => {
+      (errMsg: string) => {
         setError(errMsg);
       },
     );

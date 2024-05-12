@@ -6,9 +6,8 @@ import iconHeart from '../../assets/icon/heart.svg';
 import iconHeartLight from '../../assets/icon/light/heart-light.svg';
 
 import { type FilterData, filterData } from './filterData';
-
-import useAuthContext from '../../hooks/useAuthContext';
 import useCollection from '../../hooks/useCollection';
+import useAuthContext from '../../hooks/useAuthContext';
 
 const Container = styled.nav`
   padding: 48px 0;
@@ -130,9 +129,14 @@ export default function FilterList({
       const diff = now - createdTime;
       const selectedMilliEnd = Number(selected.endTime) * 60 * 60 * 1000;
       const selectedMilliStart = Number(selected.startTime) * 60 * 60 * 1000;
+      // console.log(diff, '<', selectedMilliEnd);
+      // console.log(diff, '>', selectedMilliStart);
+      // console.log(diff < selectedMilliEnd && diff > selectedMilliStart);
       return diff < selectedMilliEnd && diff > selectedMilliStart;
     });
 
+    console.log(documents);
+    console.log(filteredDocuments);
     setDiaryData(filteredDocuments);
   }, [selected]);
 

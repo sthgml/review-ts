@@ -3,6 +3,7 @@ import {
   Dispatch, ReactNode, SetStateAction, createContext, useState,
 } from 'react';
 import { mockData } from '../components/diary-list/diaries';
+import { TimeFilteredData } from '../components/profile/GraphList';
 
 export const StateContext = createContext<{
   isMenuOpen: boolean;
@@ -13,6 +14,8 @@ export const StateContext = createContext<{
   setIsModalOpen: Dispatch<SetStateAction<boolean>>;
   selected: DocumentData;
   setSelected: Dispatch<SetStateAction<DocumentData>>;
+  timeFilteredData: TimeFilteredData;
+  setTimeFilteredData: Dispatch<SetStateAction<TimeFilteredData>>;
 }>({
   isMenuOpen: false,
   setIsMenuOpen: () => {},
@@ -22,6 +25,10 @@ export const StateContext = createContext<{
   setIsModalOpen: () => {},
   selected: mockData,
   setSelected: () => {},
+  timeFilteredData: {
+    this: mockData,
+  },
+  setTimeFilteredData: () => {},
 });
 
 export function StateProvider({ children }: {children: ReactNode}) {
@@ -29,6 +36,8 @@ export function StateProvider({ children }: {children: ReactNode}) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [lightTheme, setLightTheme] = useState(false);
   const [selected, setSelected] = useState<DocumentData>(mockData);
+
+  const [timeFilteredData, setTimeFilteredData] = useState<TimeFilteredData>();
 
   return (
     <StateContext.Provider value={{
@@ -40,6 +49,8 @@ export function StateProvider({ children }: {children: ReactNode}) {
       setIsModalOpen,
       selected,
       setSelected,
+      timeFilteredData,
+      setTimeFilteredData,
     }}
     >
       {children}

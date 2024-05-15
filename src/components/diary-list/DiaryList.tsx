@@ -38,7 +38,10 @@ type DiaryListProps = {
   diaryData: DocumentData[]
 }
 
-export default function DiaryList({ selected, diaryData } : DiaryListProps) {
+export default function DiaryList({
+  selected,
+  diaryData,
+} : DiaryListProps) {
   const { setIsModalOpen } = useStateContexts();
 
   return (

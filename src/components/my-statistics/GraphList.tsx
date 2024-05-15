@@ -1,24 +1,53 @@
-import { DocumentData } from 'firebase/firestore';
-import styled from 'styled-components';
 import { useEffect } from 'react';
+import styled from 'styled-components';
+import { DocumentData } from 'firebase/firestore';
+
 import { filterData } from '../filter-list/filterData';
 import useStateContexts from '../../hooks/useStateContexts';
+
+import iconDofDay from '../../assets/icon/icon-d-of-day.png';
+import iconDofDayLigt from '../../assets/icon/light/icon-d-of-day-light.png';
+import Calendar from './Calendar';
 
 export type TimeFilteredData = {
   [key: string]: DocumentData[];
 };
 
 const Container = styled.div`
-  width: 100%;
+  max-width: 100%;
+  width: 578px;
+  background-color: ${({ theme }) => theme.colors.background2};
+  padding: 48px;
+  border-radius: 16px;
+  margin-bottom: 24px;
+  text-align: center;
+
+  .statistics-title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+
+    margin: 12px auto 32px auto;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.2em;
+  }
+
+  .calendar {
+    width: 100%;
+    margin-bottom: 24px;
+  }
 
   .graph-list {
     display: flex;
     align-items: end;
     gap: 12px;
-    justify-content: space-between;
+    justify-content: space-evenly;
 
     background-color: ${(props) => props.theme.colors.background1};
-    padding: 12px;
+    padding: 32px 24px 24px 24px;
+    border-radius: 12px;
   }
 
   .graph-item {
@@ -35,10 +64,24 @@ const Container = styled.div`
 
 const GraphBar = styled.div<{$quantity: number | undefined}>`
   &#graph-bar {
+    position: relative;
+    display: block;
     width: 24px;
-    height: ${(props) => (props.$quantity ?? 0) * 2}px;
-    background-color: ${({ theme }) => theme.colors.primary};
+    height: 120px;
+    background-color: ${({ theme }) => theme.colors.secondary};
     border-radius: 2px 2px 0 0;
+
+    &::after {
+      content:'';
+      display: block;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+
+      width: 24px;
+      height: ${(props) => (props.$quantity ?? 0) * 2}px;
+      background-color: ${({ theme }) => theme.colors.primary};
+    }
   }
 `;
 
@@ -48,6 +91,7 @@ type GrpahListProps = {
 
 export default function GraphList({ data }: GrpahListProps) {
   const { timeFilteredData, setTimeFilteredData } = useStateContexts();
+  const { lightTheme } = useStateContexts();
 
   // 복습 횟수
   const reviewCntTotal = data?.reduce((a, c) => {
@@ -80,12 +124,15 @@ export default function GraphList({ data }: GrpahListProps) {
 
   return (
     <Container>
-      <h2>
-        내 복습 통계
+      <h2 className="statistics-title">
+        <img src={lightTheme ? iconDofDayLigt : iconDofDay} alt="icon-d-of-day" className="icon-d-of-day" />
+        <p>내 복습 통계</p>
+        <p className="assistive-text">내 복습 기록에 대한 통계를 한 눈에 확인해보세요!</p>
       </h2>
+      <Calendar data={data ?? []} />
       <ul className="graph-list">
         <li className="graph-item">
-          <GraphBar $quantity={data?.length} id="graph-bar" />
+          <GraphBar $quantity={reviewCntTotal && reviewCntTotal} id="graph-bar" />
           <h3>
             총 복습 횟수
           </h3>

@@ -10,6 +10,7 @@ import { FilterData, filterData } from '../components/filter-list/filterData';
 import useAuthContext from '../hooks/useAuthContext';
 import useCollection from '../hooks/useCollection';
 import useStateContexts from '../hooks/useStateContexts';
+import GraphList from '../components/my-statistics/GraphList';
 
 const Container = styled.main`
   div.diary-panel {
@@ -20,6 +21,10 @@ const Container = styled.main`
     height: 100%;
 
     margin: 0 auto;
+
+    .diary-list-container {
+
+    }
   }
 
   @media (max-width:748px) {
@@ -75,10 +80,13 @@ export default function HomePage() {
           setSelected={setSelected}
           selected={selected}
         />
-        <DiaryList
-          selected={selected}
-          diaryData={diaryData ?? []}
-        />
+        <div className="diary-list-container">
+          {selected.label === '모든 기록' && <GraphList data={documents} />}
+          <DiaryList
+            selected={selected}
+            diaryData={diaryData ?? []}
+          />
+        </div>
       </div>
       <BtnNew />
       {isModalOpen && <TodayModal />}

@@ -4,7 +4,7 @@ import useAuthContext from '../../hooks/useAuthContext';
 import ProfileImage from './ProfileImage';
 import useUpdateProfile from '../../hooks/useUpdateProfile';
 import useCollection from '../../hooks/useCollection';
-import GraphList from './GraphList';
+import GraphList from '../my-statistics/GraphList';
 
 const Container = styled.main`
   &.main {
@@ -47,7 +47,6 @@ export default function Profile() {
   const emailEl = useRef<HTMLInputElement>(null);
   const phoneNumberEl = useRef<HTMLInputElement>(null);
   const { update, error, isPending } = useUpdateProfile();
-  const { documents } = useCollection('diary', ['doc.uid', '==', user?.uid ?? '']);
 
   const handleSubmit: FormEventHandler = (e) => {
     e.preventDefault();
@@ -71,7 +70,6 @@ export default function Profile() {
             className="user-nickname"
           />
         </div>
-        <GraphList data={documents} />
 
         <div>
           <h2>

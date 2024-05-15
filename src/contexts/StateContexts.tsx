@@ -3,7 +3,7 @@ import {
   Dispatch, ReactNode, SetStateAction, createContext, useState,
 } from 'react';
 import { mockData } from '../components/diary-list/diaries';
-import { TimeFilteredData } from '../components/profile/GraphList';
+import { TimeFilteredData } from '../components/my-statistics/GraphList';
 
 export const StateContext = createContext<{
   isMenuOpen: boolean;

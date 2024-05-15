@@ -5,7 +5,7 @@ const Container = styled.div<{$percentage: number}>`
   height: 8px;
   border-radius: 4px;
   ${(props) => `
-    background: linear-gradient(90deg, ${props.theme.colors.primary} ${props.$percentage}%, ${props.theme.colors.secondaryText} ${props.$percentage + 0.1}%); 
+    background: linear-gradient(90deg, ${props.theme.colors.primary} ${props.$percentage}%, ${props.theme.colors.secondary} ${props.$percentage + 0.1}%); 
   `}
 
   display: flex;
@@ -39,8 +39,11 @@ export default function ProgressBar({ reviewCnt }: ProgressBarPros) {
   case 4:
     percentage = 75;
     break;
-  default:
+  case 5:
     percentage = 80;
+    break;
+  default:
+    percentage = 100;
     break;
   }
 

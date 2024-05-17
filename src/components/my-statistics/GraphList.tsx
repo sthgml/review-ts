@@ -15,11 +15,14 @@ export type TimeFilteredData = {
 
 const Container = styled.div`
   max-width: 100%;
-  width: 578px;
-  background-color: ${({ theme }) => theme.colors.background2};
   padding: 48px;
+  box-sizing: border-box;
+  
   border-radius: 16px;
   margin-bottom: 24px;
+
+  background-color: ${({ theme }) => theme.colors.background2};
+  
   text-align: center;
 
   .statistics-title {
@@ -35,7 +38,7 @@ const Container = styled.div`
   }
 
   .calendar {
-    width: 100%;
+    width: 478px;
     margin-bottom: 24px;
   }
 
@@ -48,6 +51,9 @@ const Container = styled.div`
     background-color: ${(props) => props.theme.colors.background1};
     padding: 32px 24px 24px 24px;
     border-radius: 12px;
+
+    width: 478px;
+    max-width: 100%;
   }
 
   .graph-item {
@@ -123,7 +129,7 @@ export default function GraphList({ data }: GrpahListProps) {
   }, [data, filterData]);
 
   return (
-    <Container>
+    <Container className="statistics-panel">
       <h2 className="statistics-title">
         <img src={lightTheme ? iconDofDayLigt : iconDofDay} alt="icon-d-of-day" className="icon-d-of-day" />
         <p>내 복습 통계</p>

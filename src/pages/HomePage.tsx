@@ -18,6 +18,7 @@ const Container = styled.main`
     justify-content: center;
 
     width: 100%;
+    max-width: 100%;
     height: 100%;
 
     margin: 0 auto;
@@ -33,10 +34,23 @@ const Container = styled.main`
       flex-direction: column;
       align-items: center;
 
-      width: 100%;
+      width: 100vw;
       margin-top: 12px;
       margin-bottom: 12px;
       padding: 0px;
+    }
+
+    article.note-article {
+      width: 100%;
+    }
+
+    div.statistics-panel {
+      width: 100vw;
+      padding: 24px;
+
+      .calendar.calendar {
+        width: 100%;
+      } 
     }
   } 
 

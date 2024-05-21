@@ -10,6 +10,7 @@ import TextArea from '../common/TextArea';
 import useStateContexts from '../../hooks/useStateContexts';
 import getTimeString from '../../utils/getTimeString';
 import ProgressBar from './ProgressBar';
+import TypingPractice from '../typing-practice/TypingPractice';
 
 const Container = styled.article`
   display: flex;
@@ -111,6 +112,7 @@ export default function DiaryItem({ data }: DiaryItemProps) {
       </div>
       <ProgressBar reviewCnt={data.reviewCnt} />
       <TextArea placeholder={data.doc.text} value={data.doc.text} />
+      <TypingPractice text={data.doc.text} />
       <DiaryBtns fns={{ handleDelete, handleUpdate }} />
     </Container>
   );

@@ -25,6 +25,7 @@ const Container = styled.section`
   @media (max-width:500px) {
     & {
       padding: 24px;
+      width: 100vw;
     }
 
     h2 {

@@ -111,7 +111,6 @@ export default function DiaryItem({ data }: DiaryItemProps) {
         )}
       </div>
       <ProgressBar reviewCnt={data.reviewCnt} />
-      <TextArea placeholder={data.doc.text} value={data.doc.text} />
       <TypingPractice text={data.doc.text} />
       <DiaryBtns fns={{ handleDelete, handleUpdate }} />
     </Container>

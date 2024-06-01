@@ -1,8 +1,13 @@
-import { ReactNode, useRef, useState } from 'react';
+import {
+  Dispatch,
+  ReactNode, SetStateAction, useEffect, useRef, useState,
+} from 'react';
 import styled from 'styled-components';
+import throttle from '../../utils/throttle';
 
 const Container = styled.div<{$wordLength: number}>`
   display: inline-block;
+  width: 100%;
 
   p {
     position: absolute;
@@ -49,31 +54,35 @@ const Container = styled.div<{$wordLength: number}>`
   }
 
   textarea {
-    display: inline-block;
-    width: ${(props) => props.$wordLength * 13}px;
+    display: block;
     
-    height: 14px;
+    width: 100%;
+
+    opacity: 0.1;
     background: none;
+    
     resize: none;
   }
 `;
 
 type TypingItemProps = {
   word: string;
+  setIsCompleted: Dispatch<SetStateAction<boolean>>;
 }
 
-export default function TypingItem({ word }: TypingItemProps) {
+export default function TypingItem({ word, setIsCompleted }: TypingItemProps) {
+  if (word === '') return null;
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [spanArr, setSpanArr] = useState<ReactNode[]>([word]);
 
   const handleBackspace = (e) => {
-    if (textareaRef.current?.value.length > 0) return;
+    if (textareaRef.current && textareaRef.current?.value.length > 0) return;
     if (e.key === 'Backspace') {
       let prevWord = e.target.parentNode.previousSibling?.lastChild;
       if (prevWord) {
         prevWord.focus();
       } else {
-        prevWord = e.target.parentNode.parentNode.previousSibling?.lastChild.lastChild;
+        prevWord = e.target.parentNode.parentNode.previousSibling?.lastChild?.lastChild;
         if (prevWord) {
           prevWord?.focus();
         }
@@ -83,12 +92,14 @@ export default function TypingItem({ word }: TypingItemProps) {
 
   const moveNext = (e) => {
     let nextWord = e.target.parentNode.nextSibling?.lastChild;
-    if (nextWord) {
+    if (nextWord && nextWord.type === 'textarea') {
       nextWord.focus();
     } else {
-      nextWord = e.target.parentNode.parentNode.nextSibling?.firstChild.lastChild;
-      if (nextWord) {
+      nextWord = e.target.parentNode.parentNode.nextSibling?.firstChild?.lastChild;
+      if (nextWord && nextWord.type === 'textarea') {
         nextWord?.focus();
+      } else {
+        setIsCompleted(true);
       }
     }
   };
@@ -97,7 +108,6 @@ export default function TypingItem({ word }: TypingItemProps) {
     if (!textareaRef.current) return;
 
     const trimedText = textareaRef.current.value.trim();
-
     const textareaArr = trimedText.split('');
     const textArr = word.trim().split('');
 
@@ -130,16 +140,26 @@ export default function TypingItem({ word }: TypingItemProps) {
     }
   };
 
+  const throttleChange = throttle(handleChange, 50);
+
+  // textarea 크기 변경!
+  useEffect(() => {
+    if (!textareaRef.current) return;
+    textareaRef.current.style.height = 'auto';
+    textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+  }, []);
+
   return (
     <Container
       $wordLength={word.length}
+      className="typing-item"
     >
       <p>
         {spanArr}
       </p>
       <textarea
         ref={textareaRef}
-        onChange={handleChange}
+        onChange={(e) => throttleChange(e)}
         className="word"
         onKeyDown={handleBackspace}
       />

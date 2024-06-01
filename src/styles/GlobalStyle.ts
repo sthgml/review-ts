@@ -155,18 +155,24 @@ const GlobalStyle = createGlobalStyle<GlobalStyleProps>`
     cursor: pointer;
     font-size: 16px;
     border-radius: 8px;
-    box-sizing: border-box;
   }
 
   [class^="btn-"]:hover {
-    box-sizing: border-box;
     box-shadow: inset 0 18px 18px #ffffff66;
   }
 
   [class^="btn-"]:active {
-    box-sizing: border-box;
     background-color: ${({ theme }) => theme.colors.primary}99;
     box-shadow: inset 0 -18px 18px #00000022;
+  }
+
+  [class^="btn-"]:disabled {
+    background-color: ${({ theme }) => theme.colors.icon};
+    color: ${({ theme }) => theme.colors.secondaryText}55;
+
+    &:hover {
+      box-shadow: none;
+    }
   }
 
   .warning-text {

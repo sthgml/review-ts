@@ -83,13 +83,24 @@ export default function DiaryItem({ data }: DiaryItemProps) {
     }
   }, [data.lastUpdatedTime]);
 
-  const { deleteDocument } = useFirestore('diary');
+  const { deleteDocument, updateDocument } = useFirestore('diary');
+
   const handleDelete = () => {
     if (window.confirm('정말로 삭제하시겠습니까?')) deleteDocument(data.id);
   };
+
   const handleUpdate = () => {
     setIsModalOpen(true);
     setSelected(data);
+  };
+
+  const addReviewCnt = (e) => {
+    e.preventDefault();
+    updateDocument(
+      data.doc.id,
+      { 'doc.text': data.doc.text, 'doc.title': data.doc.title },
+      data.reviewCnt ? data.reviewCnt + 1 : 2,
+    );
   };
 
   return (
@@ -111,7 +122,7 @@ export default function DiaryItem({ data }: DiaryItemProps) {
         )}
       </div>
       <ProgressBar reviewCnt={data.reviewCnt} />
-      <TypingPractice text={data.doc.text} />
+      <TypingPractice text={data.doc.text} addReviewCnt={addReviewCnt} />
       <DiaryBtns fns={{ handleDelete, handleUpdate }} />
     </Container>
   );

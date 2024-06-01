@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useEffect, useRef, useState } from 'react';
 import Left from './Left';
 import Right from './Right';
+import throttle from '../../../utils/throttle';
 
 const Container = styled.header`
   position: fixed;
@@ -44,17 +45,6 @@ const Container = styled.header`
     aspect-ratio: 1/1;
   }
 `;
-
-const throttle = function (callback: (e: Event) => void, waitTime: number) {
-  let timerId: NodeJS.Timeout | null = null;
-  return (e: Event) => {
-    if (timerId) return;
-    timerId = setTimeout(() => {
-      callback.call(this, e);
-      timerId = null;
-    }, waitTime);
-  };
-};
 
 function Header() {
   const [hide, setHide] = useState<boolean>(false);

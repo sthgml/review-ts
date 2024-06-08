@@ -10,7 +10,6 @@ import { FilterData, filterData } from '../components/filter-list/filterData';
 import useAuthContext from '../hooks/useAuthContext';
 import useCollection from '../hooks/useCollection';
 import useStateContexts from '../hooks/useStateContexts';
-import GraphList from '../components/my-statistics/GraphList';
 
 const Container = styled.main`
   div.diary-panel {

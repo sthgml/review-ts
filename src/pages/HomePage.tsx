@@ -87,17 +87,7 @@ export default function HomePage() {
   }, [isModalOpen, documents]);
 
   useEffect(() => {
-    const $button = document.querySelector('#installButton') ?? document.createElement('button');
 
-    pwaInstallHandler.addListener((canInstall) => {
-      $button.style.display = canInstall ? 'inline-block' : 'none';
-    });
-
-    return () => {
-      pwaInstallHandler.removeListener((canInstall) => {
-        $button.style.display = canInstall ? 'inline-block' : 'none';
-      });
-    };
   }, []);
 
   return (

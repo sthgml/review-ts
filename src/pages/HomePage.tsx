@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { type DocumentData } from 'firebase/firestore';
+import { pwaInstallHandler } from 'pwa-install-handler';
 import DiaryList from '../components/diary-list/DiaryList';
 import BtnNew from '../components/today-modal/BtnNew';
 import TodayModal from '../components/today-modal/TodayModal';
@@ -85,6 +86,20 @@ export default function HomePage() {
     }
   }, [isModalOpen, documents]);
 
+  useEffect(() => {
+    const $button = document.querySelector('#installButton') ?? document.createElement('button');
+
+    pwaInstallHandler.addListener((canInstall) => {
+      $button.style.display = canInstall ? 'inline-block' : 'none';
+    });
+
+    return () => {
+      pwaInstallHandler.removeListener((canInstall) => {
+        $button.style.display = canInstall ? 'inline-block' : 'none';
+      });
+    };
+  }, []);
+
   return (
     <Container>
       <div className="diary-panel">
@@ -101,6 +116,16 @@ export default function HomePage() {
           />
         </div>
       </div>
+      <button
+        type="button"
+        className="btn-install"
+        id="installButton"
+        onClick={() => {
+          pwaInstallHandler.install();
+        }}
+      >
+        Install
+      </button>
       <BtnNew />
       {isModalOpen && <TodayModal />}
     </Container>

@@ -49,7 +49,7 @@ const authReducer = (state: State, action: Action): State => {
   case 'login':
     return { ...state, user: action.payload, isAuthReady: true };
   case 'logout':
-    return { ...state, user: null };
+    return { ...state, user: null, isAuthReady: true };
   case 'authIsReady':
     return { ...state, user: action.payload, isAuthReady: true };
   default:
@@ -63,19 +63,19 @@ function AuthContextProvider({ children }: {children: ReactNode}) {
     isAuthReady: false,
   });
 
-  const initializer = () => {
+  useEffect(() => {
     const unsubscribe = appAuth.onAuthStateChanged((user) => {
       if (user) {
         dispatch({ type: 'authIsReady', payload: user });
+      } else {
+        dispatch({ type: 'logout' });
       }
     });
 
     return () => {
       unsubscribe();
     };
-  };
-
-  useEffect(initializer, []);
+  }, []);
 
   return (
     <AuthContext.Provider value={{ ...state, dispatch }}>

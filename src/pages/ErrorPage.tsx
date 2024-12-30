@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 import Layout from '../components/Layout';
 
 import ErrorDiv from '../components/common/errorDiv/ErrorDiv';
@@ -24,6 +25,7 @@ const MainError = styled.main`
 `;
 
 export default function ErrorPage() {
+  const navigate = useNavigate();
   return (
     <Layout>
       <MainError>
@@ -31,9 +33,9 @@ export default function ErrorPage() {
         <button
           type="button"
           className="btn-go-back"
-          onClick={() => { window.history.back(); }}
+          onClick={() => { navigate('/'); }}
         >
-          이전 페이지로 돌아가기
+          홈페이지로 가기
         </button>
       </MainError>
     </Layout>

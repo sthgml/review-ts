@@ -1,16 +1,15 @@
 import styled from 'styled-components';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { type DocumentData } from 'firebase/firestore';
 import DiaryList from '../components/diary-list/DiaryList';
 import BtnNew from '../components/today-modal/BtnNew';
 import TodayModal from '../components/today-modal/TodayModal';
 import FilterList from '../components/filter-list/FilterList';
 import { FilterData, filterData } from '../components/filter-list/filterData';
-import useAuthContext from '../hooks/useAuthContext';
 import useCollection from '../hooks/useCollection';
 import useStateContexts from '../hooks/useStateContexts';
 import GraphList from '../components/my-statistics/GraphList';
+import useAuthContext from '../hooks/useAuthContext';
 
 const Container = styled.main`
   div.diary-panel {
@@ -66,15 +65,8 @@ const Container = styled.main`
 `;
 
 export default function HomePage() {
-  const navigate = useNavigate();
   const { user } = useAuthContext();
   const { documents } = useCollection('diary', ['doc.uid', '==', user?.uid ?? '']);
-
-  useEffect(() => {
-    if (!user?.email) {
-      navigate('/login');
-    }
-  }, [user?.email]);
 
   const { isModalOpen } = useStateContexts();
   const [diaryData, setDiaryData] = useState<DocumentData[] | null>(documents);

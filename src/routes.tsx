@@ -1,22 +1,30 @@
+import { Navigate } from 'react-router-dom';
+import { UserInfo } from 'firebase/auth';
 import Layout from './components/Layout';
-import ErrorPage from './pages/ErrorPage';
 
 import HomePage from './pages/HomePage';
 import JoinPage from './pages/JoinPage';
 import LoginPage from './pages/LoginPage';
 import MyPage from './pages/MyPage';
 
-const routes = [
-  {
-    element: <Layout />,
-    children: [
-      { path: '/', element: <HomePage /> },
-      { path: '/join', element: <JoinPage /> },
-      { path: '/login', element: <LoginPage /> },
-      { path: '/mypage', element: <MyPage /> },
-    ],
-    errorElement: <ErrorPage />,
-  },
-];
+const useProtectedRoute = (user: UserInfo | null) => {
+  const routes = [
+    {
+      element: <Layout />,
+      children: [
+        { path: '/', element: user ? <HomePage /> : <Navigate to="/login" /> },
+        { path: '/join', element: user ? <Navigate to="/" replace /> : <JoinPage /> },
+        { path: '/login', element: user ? <Navigate to="/" replace /> : <LoginPage /> },
+        { path: '/mypage', element: user ? <MyPage /> : <Navigate to="/login" replace /> },
+      ],
+    },
+    {
+      path: '',
+      element: <Navigate to="/" />,
+    },
+  ];
 
-export default routes;
+  return { routes };
+};
+
+export default useProtectedRoute;

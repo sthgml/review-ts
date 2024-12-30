@@ -1,39 +1,19 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import React, { ReactNode } from 'react';
-import routes from './routes';
-
-import { StateProvider } from './contexts/StateContexts';
-import { AuthContextProvider } from './contexts/AuthContext';
-
-const router = createBrowserRouter(routes);
-
-interface MultiContextProps {
-  contexts: typeof StateProvider[];
-  children: ReactNode;
-}
-
-function MultiContextProvider({
-  contexts,
-  children,
-}: MultiContextProps) {
-  return contexts.reduce(
-    (
-      prev,
-      context,
-    ) => React.createElement(context, { children: prev })
-    , children,
-  );
-}
+import useProtectedRoute from './routes';
+import useAuthContext from './hooks/useAuthContext';
+import ErrorPage from './pages/ErrorPage';
 
 export default function App() {
+  const { isAuthReady, user } = useAuthContext();
+  const { routes } = useProtectedRoute(user);
+  const router = createBrowserRouter(routes);
+
+  if (!isAuthReady) {
+    return null;
+  }
+
   return (
-    <MultiContextProvider contexts={[
-      StateProvider,
-      AuthContextProvider,
-    ]}
-    >
-      <RouterProvider router={router} />
-    </MultiContextProvider>
+    <RouterProvider fallbackElement={<ErrorPage />} router={router} />
   );
 }

@@ -60,7 +60,9 @@ function LoginForm() {
   };
 
   useEffect(() => {
-    if (!inputEmail.current || !inputPassword.current) return;
+    if (!inputEmail.current || !inputPassword.current) {
+      return;
+    }
     inputEmail.current.value = email;
     inputPassword.current.value = password;
   }, [email, password]);

@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app';
-import { Firestore, Timestamp, getFirestore } from 'firebase/firestore';
-import { type Auth, getAuth } from 'firebase/auth';
+import { Timestamp, getFirestore } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,

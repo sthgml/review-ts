@@ -7,7 +7,6 @@ import useStateContexts from '../../hooks/useStateContexts';
 
 import iconDofDay from '../../assets/icon/icon-d-of-day.png';
 import iconDofDayLigt from '../../assets/icon/light/icon-d-of-day-light.png';
-import Calendar from './Calendar';
 
 export type TimeFilteredData = {
   [key: string]: DocumentData[];
@@ -135,7 +134,6 @@ export default function GraphList({ data }: GrpahListProps) {
         <p>내 복습 통계</p>
         <p className="assistive-text">내 복습 기록에 대한 통계를 한 눈에 확인해보세요!</p>
       </h2>
-      <Calendar data={data ?? []} />
       <ul className="graph-list">
         <li className="graph-item">
           <GraphBar $quantity={reviewCntTotal && reviewCntTotal} id="graph-bar" />

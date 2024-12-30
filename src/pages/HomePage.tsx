@@ -95,7 +95,7 @@ export default function HomePage() {
           selected={selected}
         />
         <div className="diary-list-container">
-          {/* {selected.label === '모든 기록' && <GraphList data={documents} />} */}
+          {selected.label === '모든 기록' && <GraphList data={documents} />}
           <DiaryList
             selected={selected}
             diaryData={diaryData ?? []}

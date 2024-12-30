@@ -44,7 +44,6 @@ export default function DiaryForm({ uid }: DiaryFormProps) {
         alert('내용을 입력해주세요.');
         return;
       }
-      console.log(uid);
       addDocument({ uid, title, text });
     }
   };
